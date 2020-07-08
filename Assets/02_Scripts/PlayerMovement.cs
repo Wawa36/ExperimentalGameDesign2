@@ -7,6 +7,12 @@ public class PlayerMovement : MonoBehaviour
     Rigidbody rigidbody;
 
     [SerializeField] private float speed;
+    private Vector3 playerDirection;
+
+    public Vector3 PlayerDirection
+    {
+        get => playerDirection;
+    }
 
     void Start()
     {
@@ -23,5 +29,7 @@ public class PlayerMovement : MonoBehaviour
         Vector3 direction = new Vector3(Input.GetAxis("Horizontal") * speed * Time.fixedDeltaTime,
             0, Input.GetAxis("Vertical") * speed * Time.fixedDeltaTime);
         rigidbody.MovePosition(this.rigidbody.position + direction);
+
+        playerDirection = direction;
     }
 }
