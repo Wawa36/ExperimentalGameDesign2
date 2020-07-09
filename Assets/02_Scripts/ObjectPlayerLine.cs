@@ -24,7 +24,13 @@ public class ObjectPlayerLine : MonoBehaviour
 
     void Update()
     {
-        UpdateViewMode();
+        if(isTotallyVisible && isIntersected)
+        {
+            isTotallyVisible = false;
+        } else if(isTotallyVisible && !isIntersected)
+        {
+            isTotallyVisible = true;
+        }
     }
 
 
@@ -61,18 +67,6 @@ public class ObjectPlayerLine : MonoBehaviour
             gameObject.layer = LayerMask.NameToLayer("Default");
 
         }
-        //if (isTotallyVisible)
-        //{
-        //    Debug.Log("Is Totally Visible" + name);
-        //}
-        //if (isTotallyHidden)
-        //{
-        //    Debug.Log("Is Totally Hidden" + name);
-        //}
-        //if (isIntersected)
-        //{
-        //    Debug.Log("Is partially hidden" + transform.name);
-        //}
     }
 
 
@@ -86,21 +80,6 @@ public class ObjectPlayerLine : MonoBehaviour
             {
                 hitPoint.collider.GetComponent<ObjectPlayerLine>().isIntersected = true;
             }
-        }
-    }
-
-    void UpdateViewMode()
-    {
-        if (isTotallyVisible && !isIntersected)
-        {
-            GetComponent<MeshRenderer>().material.color = Color.white;
-        } else if (isTotallyHidden)
-        {
-            GetComponent<MeshRenderer>().material.color = Color.black;
-        }
-        else
-        {
-            GetComponent<MeshRenderer>().material.color = Color.red;
         }
     }
 }
