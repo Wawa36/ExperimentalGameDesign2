@@ -73,13 +73,13 @@ public class ObjectBehaviour : MonoBehaviour
 
     void SetVisibility()
     {
-        if (isTotallyVisible)
-        {
-            spriteRenderer.sortingLayerName = "IsTotallyVisible";
-        }
-        else
-        {
-            spriteRenderer.sortingLayerName = "Objects";
-        }
+        //if (isTotallyVisible)
+        //{
+        //    spriteRenderer.sortingLayerName = "IsTotallyVisible";
+        //}
+        //else
+        //{
+        //    spriteRenderer.sortingLayerName = "Objects";
+        //}
     }
 }
