@@ -7,6 +7,7 @@ public class MenuScript : MonoBehaviour
 {
     private void Start()
     {
+        FindObjectOfType<ObjectManager>().enabled = false;
         Time.timeScale = 0;
     }
 
@@ -17,6 +18,8 @@ public class MenuScript : MonoBehaviour
 
     public void StartTime()
     {
+        FindObjectOfType<ObjectManager>().enabled = true;
+
         Time.timeScale = 1;
     }
 }
