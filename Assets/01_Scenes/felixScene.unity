@@ -399,6 +399,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: CubeBevelSmall
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: cbc49448eb52121468cf104fc211d8e4,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cbc49448eb52121468cf104fc211d8e4, type: 3}
 --- !u!114 &1539717018 stripped
@@ -500,6 +505,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: PentagonBevelMiddle
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 9ba4411e58aaeed4097019baaedaad8c,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9ba4411e58aaeed4097019baaedaad8c, type: 3}
 --- !u!1001 &2006868642
@@ -589,6 +599,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: TriangleBevelSmall
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: be84fa80b9d9bbc4ca347172aeab3607,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: be84fa80b9d9bbc4ca347172aeab3607, type: 3}
 --- !u!1001 &2135083932
@@ -677,6 +692,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: cubeLongBevel
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 7b82f0f5291d9b9479bb3d4530a4e385,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7b82f0f5291d9b9479bb3d4530a4e385, type: 3}

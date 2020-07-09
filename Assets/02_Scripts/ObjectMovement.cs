@@ -5,6 +5,7 @@ using UnityEngine;
 public class ObjectMovement : MonoBehaviour
 {
     Rigidbody rigidbody;
+    ObjectPlayerLine objectPlayerLine;
     bool isMoving;
 
     [SerializeField] private float speed;
@@ -13,7 +14,13 @@ public class ObjectMovement : MonoBehaviour
     void Start()
     {
         rigidbody = this.GetComponent<Rigidbody>();
+        objectPlayerLine = this.GetComponent<ObjectPlayerLine>();
         isMoving = false;
+    }
+
+    private void Update()
+    {
+        SetMovement();
     }
 
     void FixedUpdate()
@@ -33,6 +40,18 @@ public class ObjectMovement : MonoBehaviour
             rigidbody.isKinematic = true;
         }
 
+    }
+
+    void SetMovement()
+    {
+        if(objectPlayerLine.isTotallyHidden)
+        {
+            isMoving = true;
+        }
+        else
+        {
+            isMoving = false;
+        }
     }
 
     public void SetMove()
