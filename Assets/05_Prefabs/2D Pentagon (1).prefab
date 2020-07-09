@@ -167,7 +167,7 @@ MonoBehaviour:
   - {x: -4.323465, y: 1.1367657, z: -0.00000022422728}
   m_ShapePathHash: 1104399566
   m_Mesh: {fileID: 0}
-  m_InstanceId: -77488
+  m_InstanceId: -143196
 --- !u!1 &4689105388705477857
 GameObject:
   m_ObjectHideFlags: 0
@@ -183,6 +183,7 @@ GameObject:
   - component: {fileID: 1934594033683665087}
   - component: {fileID: 671063291132225924}
   - component: {fileID: 5255977279534498707}
+  - component: {fileID: 531105757}
   m_Layer: 0
   m_Name: 2D Pentagon (1)
   m_TagString: Untagged
@@ -249,7 +250,7 @@ Rigidbody:
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 120
-  m_CollisionDetection: 0
+  m_CollisionDetection: 2
 --- !u!33 &1934594033683665087
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -308,5 +309,18 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1.9021131, y: 0.29, z: 1.809017}
-  m_Center: {x: 0.000000059604645, y: 0, z: -0.0954915}
+  m_Size: {x: 1.9495275, y: 0.29, z: 1.8505592}
+  m_Center: {x: 0.0006290674, y: 0, z: -0.09779945}
+--- !u!65 &531105757
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4689105388705477857}
+  m_Material: {fileID: 13400000, guid: fdb9ab4216860274798d487a43730483, type: 2}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1.81568, y: 0.29, z: 1.6922731}
+  m_Center: {x: -0.0030782223, y: 0, z: -0.081970304}
