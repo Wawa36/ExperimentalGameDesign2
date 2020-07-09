@@ -55,3 +55,6 @@ TagManager:
   - name: Player
     uniqueID: 1997853147
     locked: 0
+  - name: IsTotallyVisible
+    uniqueID: 3067806219
+    locked: 0
