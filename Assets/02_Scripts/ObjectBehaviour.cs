@@ -7,7 +7,8 @@ public class ObjectBehaviour : MonoBehaviour
     Rigidbody rigidbody;
     ObjectPlayerLine objectPlayerLine;
     bool isMoving;
-    bool isTotallyVisible { get { return objectPlayerLine.isTotallyVisible; } set { } }
+    bool isTotallyVisible { get { return objectPlayerLine.isTotallyVisible; } set {; } }
+    bool isTotallyHidden { get { return objectPlayerLine.isTotallyHidden; } set {; } }
     SpriteRenderer spriteRenderer;
 
     [SerializeField] private float speed;
@@ -20,7 +21,7 @@ public class ObjectBehaviour : MonoBehaviour
         objectPlayerLine = this.GetComponent<ObjectPlayerLine>();
         isMoving = false;
         // TO DO: initialize spriteRenderer
-        // spriteRenderer = this.getcomponents...
+        spriteRenderer = this.GetComponentInChildren<SpriteRenderer>();
     }
 
     private void Update()
@@ -73,13 +74,15 @@ public class ObjectBehaviour : MonoBehaviour
 
     void SetVisibility()
     {
-        //if (isTotallyVisible)
-        //{
-        //    spriteRenderer.sortingLayerName = "IsTotallyVisible";
-        //}
-        //else
-        //{
-        //    spriteRenderer.sortingLayerName = "Objects";
-        //}
+        if (isTotallyVisible)
+        {
+            spriteRenderer.sortingLayerName = "IsTotallyVisible";
+            //print("change to full visibility");
+        }
+        else // if (isTotallyHidden)
+        {
+            spriteRenderer.sortingLayerName = "Objects";
+            //print("change to no");
+        }
     }
 }
