@@ -8,8 +8,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace RoboRyanTron.Unite2017.Events
-{
+
     [CreateAssetMenu]
     public class GameEvent : ScriptableObject
     {
@@ -37,4 +36,3 @@ namespace RoboRyanTron.Unite2017.Events
                 eventListeners.Remove(listener);
         }
     }
-}

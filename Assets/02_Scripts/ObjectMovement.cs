@@ -11,6 +11,7 @@ public class ObjectMovement : MonoBehaviour
     [SerializeField] private float speed;
     [SerializeField] private PlayerMovement player;
 
+  
     void Start()
     {
         rigidbody = this.GetComponent<Rigidbody>();
