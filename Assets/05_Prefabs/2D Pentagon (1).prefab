@@ -182,7 +182,7 @@ GameObject:
   - component: {fileID: 7235650944304530456}
   - component: {fileID: 1934594033683665087}
   - component: {fileID: 671063291132225924}
-  - component: {fileID: 5053541242760451195}
+  - component: {fileID: 5255977279534498707}
   m_Layer: 0
   m_Name: 2D Pentagon (1)
   m_TagString: Untagged
@@ -197,7 +197,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4689105388705477857}
-  m_LocalRotation: {x: 0.70710677, y: -0, z: -0, w: 0.7071068}
+  m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.70710677}
   m_LocalPosition: {x: 3.33, y: 2.14, z: -0.8}
   m_LocalScale: {x: 2, y: 2, z: 2}
   m_Children:
@@ -297,8 +297,8 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!64 &5053541242760451195
-MeshCollider:
+--- !u!65 &5255977279534498707
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -307,7 +307,6 @@ MeshCollider:
   m_Material: {fileID: 13400000, guid: fdb9ab4216860274798d487a43730483, type: 2}
   m_IsTrigger: 0
   m_Enabled: 1
-  serializedVersion: 4
-  m_Convex: 1
-  m_CookingOptions: 30
-  m_Mesh: {fileID: -4523576878071891012, guid: 8d28daca29b13eb419ce3f87ff243a32, type: 3}
+  serializedVersion: 2
+  m_Size: {x: 1.9021131, y: 0.29, z: 1.809017}
+  m_Center: {x: 0.000000059604645, y: 0, z: -0.0954915}
