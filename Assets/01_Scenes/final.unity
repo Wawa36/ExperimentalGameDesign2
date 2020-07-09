@@ -127,7 +127,19 @@ Light:
     type: 3}
   m_PrefabInstance: {fileID: 5033611518405798135}
   m_PrefabAsset: {fileID: 0}
---- !u!43 &1008887178
+--- !u!114 &1205466760 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5182988210202507531, guid: d48951c7c73ae0146aae9023f4b0b4ec,
+    type: 3}
+  m_PrefabInstance: {fileID: 6677313029134289936}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d74e437c16d3f494c8ea6408b147ebeb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!43 &1346498461
 Mesh:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -290,19 +302,7 @@ Mesh:
     offset: 0
     size: 0
     path: 
---- !u!114 &1205466760 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 5182988210202507531, guid: d48951c7c73ae0146aae9023f4b0b4ec,
-    type: 3}
-  m_PrefabInstance: {fileID: 6677313029134289936}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d74e437c16d3f494c8ea6408b147ebeb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!43 &1346498461
+--- !u!43 &1634623296
 Mesh:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -536,12 +536,27 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Mesh
       value: 
-      objectReference: {fileID: 1008887178}
+      objectReference: {fileID: 1634623296}
+    - target: {fileID: 5575959746087413903, guid: 791a157d9d22677468632ccedff4ac3d,
+        type: 3}
+      propertyPath: m_InstanceId
+      value: -123632
+      objectReference: {fileID: 0}
     - target: {fileID: 7002000101657476463, guid: 791a157d9d22677468632ccedff4ac3d,
         type: 3}
       propertyPath: player
       value: 
       objectReference: {fileID: 1205466760}
+    - target: {fileID: 7002000101657476463, guid: 791a157d9d22677468632ccedff4ac3d,
+        type: 3}
+      propertyPath: speed
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7002000101657476463, guid: 791a157d9d22677468632ccedff4ac3d,
+        type: 3}
+      propertyPath: playerSpeedMultiplier
+      value: 0.5
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 791a157d9d22677468632ccedff4ac3d, type: 3}
 --- !u!1001 &712685831349172083
@@ -616,11 +631,6 @@ PrefabInstance:
       propertyPath: m_Mesh
       value: 
       objectReference: {fileID: 1346498461}
-    - target: {fileID: 5575959746087413903, guid: 791a157d9d22677468632ccedff4ac3d,
-        type: 3}
-      propertyPath: m_InstanceId
-      value: -77488
-      objectReference: {fileID: 0}
     - target: {fileID: 7002000101657476463, guid: 791a157d9d22677468632ccedff4ac3d,
         type: 3}
       propertyPath: player
