@@ -27,7 +27,7 @@ public class PlayerMovement : MonoBehaviour
     void Move()
     {
         Vector3 direction = new Vector3(Input.GetAxis("Horizontal") * speed * Time.fixedDeltaTime,
-            0, Input.GetAxis("Vertical") * speed * Time.fixedDeltaTime);
+            Input.GetAxis("Vertical") * speed * Time.fixedDeltaTime, 0);
         rigidbody.MovePosition(this.rigidbody.position + direction);
 
         playerDirection = direction;
