@@ -150,8 +150,8 @@ Light:
   m_Type: 2
   m_Shape: 0
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Intensity: 1.65
-  m_Range: 50
+  m_Intensity: 2
+  m_Range: 1049.7
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
   m_CookieSize: 10
@@ -207,7 +207,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 608617781}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -8.92, y: 1.633, z: -2.2}
+  m_LocalPosition: {x: -8.19, y: 2.22, z: -5.59}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -269,7 +269,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: c7ea6e2696c02604c99af2d0a19ba3df, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -389,6 +389,11 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: cbc49448eb52121468cf104fc211d8e4,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: c7ea6e2696c02604c99af2d0a19ba3df, type: 2}
     - target: {fileID: 919132149155446097, guid: cbc49448eb52121468cf104fc211d8e4,
         type: 3}
       propertyPath: m_Name
@@ -485,6 +490,11 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: be84fa80b9d9bbc4ca347172aeab3607,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: c7ea6e2696c02604c99af2d0a19ba3df, type: 2}
     - target: {fileID: 919132149155446097, guid: be84fa80b9d9bbc4ca347172aeab3607,
         type: 3}
       propertyPath: m_Name
@@ -569,6 +579,11 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: 7b82f0f5291d9b9479bb3d4530a4e385,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: c7ea6e2696c02604c99af2d0a19ba3df, type: 2}
     - target: {fileID: 919132149155446097, guid: 7b82f0f5291d9b9479bb3d4530a4e385,
         type: 3}
       propertyPath: m_Name
@@ -657,6 +672,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: CUBE 2
       objectReference: {fileID: 0}
+    - target: {fileID: 4006928779560112283, guid: e1d1d281bc8d97e409f369254c2126bd,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: c7ea6e2696c02604c99af2d0a19ba3df, type: 2}
     - target: {fileID: 4006928779560112285, guid: e1d1d281bc8d97e409f369254c2126bd,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -726,31 +746,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 5033611517443786116, guid: 5b90860da83231d45946b58422ae9502,
-        type: 3}
-      propertyPath: m_ClearFlags
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 5033611517443786116, guid: 5b90860da83231d45946b58422ae9502,
-        type: 3}
-      propertyPath: m_BackGroundColor.r
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5033611517443786116, guid: 5b90860da83231d45946b58422ae9502,
-        type: 3}
-      propertyPath: m_BackGroundColor.g
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5033611517443786116, guid: 5b90860da83231d45946b58422ae9502,
-        type: 3}
-      propertyPath: m_BackGroundColor.b
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5033611517701479022, guid: 5b90860da83231d45946b58422ae9502,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 5033611518651296190, guid: 5b90860da83231d45946b58422ae9502,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -810,11 +805,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Game Environment
-      objectReference: {fileID: 0}
-    - target: {fileID: 5033611518671266157, guid: 5b90860da83231d45946b58422ae9502,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5b90860da83231d45946b58422ae9502, type: 3}
