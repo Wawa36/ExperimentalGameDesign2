@@ -11,6 +11,7 @@ public class ObjectPlayerLine : MonoBehaviour
 
     public bool isTotallyHidden;
     public bool isTotallyVisible;
+    public bool isIntersected;
 
     // Start is called before the first frame update
     void Start()
@@ -21,23 +22,16 @@ public class ObjectPlayerLine : MonoBehaviour
         player = FindObjectOfType<PlayerMovement>().transform;
     }
 
-    private void OnDrawGizmos()
-    {
-        Gizmos.color = Color.red;
-        foreach(Vector3 vertex in vertices)
-        {
-            Gizmos.DrawWireSphere(transform.TransformPoint(vertex), .2f);
-        }
-    }
-
-    // Update is called once per frame
     void Update()
     {
-        CheckForVisibility();
+        UpdateViewMode();
     }
 
 
-    void CheckForVisibility()
+    Vector3 startPosition;
+    Vector3 direction;
+
+    public void CheckForVisibility()
     {
         isTotallyHidden = true;
         isTotallyVisible = true;
@@ -45,32 +39,69 @@ public class ObjectPlayerLine : MonoBehaviour
         foreach (Vector3 vertex in vertices)
         {
             RaycastHit hitPoint;
-            Vector3 startPosition = transform.TransformPoint(vertex);
-            Vector3 direction = player.position - startPosition;
-
-            Debug.DrawRay(startPosition, direction, Color.yellow);
+            startPosition = transform.TransformPoint(vertex);
+            direction = player.position - startPosition;
+            gameObject.layer = LayerMask.NameToLayer("Ignore Raycast");
             if (Physics.Raycast(startPosition, direction, out hitPoint, Mathf.Infinity))
             {
-                
-                if(hitPoint.collider.tag == "Player")
+
+                if (hitPoint.collider.tag == "Player")
                 {
-                    Debug.Log("Did Hit Player");
+                    //Debug.DrawRay(startPosition, direction, Color.green);
+                    CastIntersectingRay();
                     isTotallyHidden = false;
                 }
-                else
+                else if(hitPoint.collider.gameObject != transform.gameObject)
                 {
+                    //Debug.DrawRay(startPosition, direction, Color.red);
+
                     isTotallyVisible = false;
                     Debug.Log("Did Hit something else");
                 }
             }
+            gameObject.layer = LayerMask.NameToLayer("Default");
+
         }
-        if (isTotallyVisible)
+        //if (isTotallyVisible)
+        //{
+        //    Debug.Log("Is Totally Visible" + name);
+        //}
+        //if (isTotallyHidden)
+        //{
+        //    Debug.Log("Is Totally Hidden" + name);
+        //}
+        //if (isIntersected)
+        //{
+        //    Debug.Log("Is partially hidden" + transform.name);
+        //}
+    }
+
+
+    void CastIntersectingRay()
+    {
+        RaycastHit hitPoint;
+        //Debug.DrawRay(startPosition, -direction, Color.blue);
+        if (Physics.Raycast(startPosition, -direction, out hitPoint, Mathf.Infinity))
         {
-            Debug.Log("Is Totally Visible");
+            if(hitPoint.collider.tag == "Object")
+            {
+                hitPoint.collider.GetComponent<ObjectPlayerLine>().isIntersected = true;
+            }
         }
-        if (isTotallyHidden)
+    }
+
+    void UpdateViewMode()
+    {
+        if (isTotallyVisible && !isIntersected)
         {
-            Debug.Log("Is Totally Hidden");
+            GetComponent<MeshRenderer>().material.color = Color.white;
+        } else if (isTotallyHidden)
+        {
+            GetComponent<MeshRenderer>().material.color = Color.black;
+        }
+        else
+        {
+            GetComponent<MeshRenderer>().material.color = Color.red;
         }
     }
 }

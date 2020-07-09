@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 6594972320888688296}
   m_Layer: 0
   m_Name: Object
-  m_TagString: Untagged
+  m_TagString: Object
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -60,7 +60,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 1050377c53a438d46867887c62da3f54, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -106,3 +106,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 82845f180e2ada744b81604846045ef6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isTotallyHidden: 0
+  isTotallyVisible: 0
+  isIntersected: 0
