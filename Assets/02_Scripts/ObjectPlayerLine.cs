@@ -56,7 +56,6 @@ public class ObjectPlayerLine : MonoBehaviour
                     //Debug.DrawRay(startPosition, direction, Color.red);
 
                     isTotallyVisible = false;
-                    Debug.Log("Did Hit something else");
                 }
             }
             gameObject.layer = LayerMask.NameToLayer("Default");
