@@ -47,13 +47,13 @@ public class ObjectPlayerLine : MonoBehaviour
 
                 if (hitPoint.collider.tag == "Player")
                 {
-                    //Debug.DrawRay(startPosition, direction, Color.green);
+                    Debug.DrawRay(startPosition, direction, Color.green);
                     CastIntersectingRay();
                     isTotallyHidden = false;
                 }
                 else if(hitPoint.collider.gameObject != transform.gameObject)
                 {
-                    //Debug.DrawRay(startPosition, direction, Color.red);
+                    Debug.DrawRay(startPosition, direction, Color.red);
 
                     isTotallyVisible = false;
                 }
@@ -79,7 +79,7 @@ public class ObjectPlayerLine : MonoBehaviour
     void CastIntersectingRay()
     {
         RaycastHit hitPoint;
-        //Debug.DrawRay(startPosition, -direction, Color.blue);
+        Debug.DrawRay(startPosition, -direction, Color.blue);
         if (Physics.Raycast(startPosition, -direction, out hitPoint, Mathf.Infinity))
         {
             if(hitPoint.collider.tag == "Object")
