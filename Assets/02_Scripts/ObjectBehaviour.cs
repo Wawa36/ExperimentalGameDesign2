@@ -11,7 +11,7 @@ public class ObjectBehaviour : MonoBehaviour
     bool isTotallyHidden { get { return objectPlayerLine.isTotallyHidden; } set {; } }
     SpriteRenderer spriteRenderer;
 
-    [SerializeField] private float speed;
+    [SerializeField] private float playerSpeedMultiplier;
     [SerializeField] private PlayerMovement player;
 
   
@@ -41,7 +41,7 @@ public class ObjectBehaviour : MonoBehaviour
         if(isMoving)
         {
             rigidbody.isKinematic = false;
-            rigidbody.MovePosition(this.rigidbody.position + player.PlayerDirection * -1);
+            rigidbody.MovePosition(this.rigidbody.position + player.PlayerDirection * playerSpeedMultiplier * -1);
         }
         else
         {
