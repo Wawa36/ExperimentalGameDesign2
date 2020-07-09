@@ -24,7 +24,15 @@ public class ObjectMovement : MonoBehaviour
     void Move()
     {
         if(isMoving)
+        {
+            rigidbody.isKinematic = false;
             rigidbody.MovePosition(this.rigidbody.position + player.PlayerDirection * -1);
+        }
+        else
+        {
+            rigidbody.isKinematic = true;
+        }
+
     }
 
     public void SetMove()
