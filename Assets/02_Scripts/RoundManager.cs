@@ -49,14 +49,14 @@ namespace UnityEngine.Experimental.Rendering.Universal
             isLightOut = true;
             player.GetComponent<Light2D>().enabled = false;
             time = 0;
-            //MakeOneObjectToWall();
+            MakeOneObjectToWall();
             AddObject();
             ChangeObjectPlace();
         }
 
         void AddObject()
         {
-            if(objectManager.objects.Length < maxObjects)
+            if(objectManager.objectList.Count < maxObjects)
             {
                 Vector3 position = new Vector3(Random.Range(-16, 16), Random.Range(-8, 8), -0.8f);
                 Instantiate(prefabs[Random.Range(0, prefabs.Length)], position, Quaternion.Euler(-90, 0, 0));
@@ -66,21 +66,22 @@ namespace UnityEngine.Experimental.Rendering.Universal
 
         void MakeOneObjectToWall()
         {
-            GameObject newWall = objectManager.objects[Random.Range(0, objectManager.objects.Length)].gameObject;
+            GameObject newWall = objectManager.objectList[Random.Range(0, objectManager.objectList.Count)].gameObject;
             newWall.transform.GetChild(0).GetComponent<SpriteRenderer>().color = wallColor;
             Destroy(newWall.GetComponent<ObjectPlayerLine>());
             Destroy(newWall.GetComponent<ObjectBehaviour>());
             Destroy(newWall.GetComponent<Rigidbody>());
+            newWall.tag = "Untagged";
 
             objectManager.UpdateObjects();
         }
 
         void ChangeObjectPlace()
         {
-           foreach(ObjectPlayerLine objectPLayerLine in objectManager.objects)
+           foreach(GameObject gameObject in objectManager.objectList)
            {
                 Vector3 position = new Vector3(Random.Range(-16, 16), Random.Range(-8, 8), -0.8f);
-                objectPLayerLine.gameObject.transform.position = position;
+                gameObject.transform.position = position;
             }
         }
     }

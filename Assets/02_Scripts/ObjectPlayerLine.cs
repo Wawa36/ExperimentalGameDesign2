@@ -83,7 +83,11 @@ public class ObjectPlayerLine : MonoBehaviour
         {
             if(hitPoint.collider.tag == "Object")
             {
-                hitPoint.collider.GetComponent<ObjectPlayerLine>().isIntersected = true;
+                if (hitPoint.collider.GetComponent<ObjectPlayerLine>() != null)
+                {
+                    hitPoint.collider.GetComponent<ObjectPlayerLine>().isIntersected = true;
+                }
+             
             }
         }
     }

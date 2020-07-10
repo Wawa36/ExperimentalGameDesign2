@@ -215,8 +215,8 @@ GameObject:
   - component: {fileID: 671063291132225924}
   - component: {fileID: 6175829548102532910}
   m_Layer: 0
-  m_Name: 2D Pentagon (1)
-  m_TagString: Untagged
+  m_Name: 2D Pentagon Felix Backup
+  m_TagString: Object
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -263,8 +263,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a40f60a20fbe5464189edeff8a90c115, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  objectPlayerLine: {fileID: 0}
   playerSpeedMultiplier: 0.5
-  player: {fileID: 0}
 --- !u!54 &7235650944304530456
 Rigidbody:
   m_ObjectHideFlags: 0

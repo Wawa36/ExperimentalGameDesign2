@@ -8,6 +8,7 @@ public class ObjectManager : MonoBehaviour
     public float objectTeleportFrequence = 10f;
 
     public ObjectPlayerLine[] objects;
+    public List<GameObject> objectList = new List<GameObject>();
     public List<ObjectPlayerLine> hiddenObjects;
     bool allAreVisible;
     PlayerMovement player;
@@ -32,11 +33,15 @@ public class ObjectManager : MonoBehaviour
     {
         allAreVisible = true;
         foreach(ObjectPlayerLine obj in objects){
-            if(!(obj.isTotallyVisible && !obj.isIntersected))
+            if(obj != null)
             {
-                allAreVisible = false;
+                if (!(obj.isTotallyVisible && !obj.isIntersected))
+                {
+                    allAreVisible = false;
+                }
+                obj.isIntersected = false;
             }
-            obj.isIntersected = false;
+
         }
 
         if (allAreVisible)
@@ -47,7 +52,15 @@ public class ObjectManager : MonoBehaviour
 
         foreach(ObjectPlayerLine obj in objects)
         {
-            obj.CheckForVisibility();
+            if(obj != null)
+            {
+                if (obj.GetComponent<ObjectPlayerLine>() != null)
+                {
+                    obj.CheckForVisibility();
+                }
+            }
+
+          
         }
 
         //FindHiddenObjects();
@@ -56,7 +69,11 @@ public class ObjectManager : MonoBehaviour
 
     public void UpdateObjects()
     {
+        objects = null;
         objects = Object.FindObjectsOfType<ObjectPlayerLine>();
+
+        objectList.Clear();
+        objectList.AddRange(GameObject.FindGameObjectsWithTag("Object"));
     }
 
     void FindHiddenObjects()

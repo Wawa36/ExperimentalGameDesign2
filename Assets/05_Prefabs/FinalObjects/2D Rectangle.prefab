@@ -214,7 +214,7 @@ GameObject:
   - component: {fileID: 7216533077008707345}
   m_Layer: 0
   m_Name: 2D Rectangle
-  m_TagString: Untagged
+  m_TagString: Object
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -261,8 +261,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a40f60a20fbe5464189edeff8a90c115, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  objectPlayerLine: {fileID: 0}
   playerSpeedMultiplier: 0.5
-  player: {fileID: 0}
 --- !u!54 &9129153646918653007
 Rigidbody:
   m_ObjectHideFlags: 0
