@@ -16,6 +16,11 @@ public class ObjectPlayerLine : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+   
+    }
+
+    private void OnEnable()
+    {
         mesh = GetComponent<MeshFilter>().mesh;
         vertices = mesh.vertices;
 

@@ -667,6 +667,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7149315303188570027}
   - component: {fileID: 7149315303188570024}
+  - component: {fileID: 243979484}
   m_Layer: 0
   m_Name: Winning
   m_TagString: Untagged
@@ -704,17 +705,38 @@ MonoBehaviour:
   Response:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 7149315303835839273}
-        m_MethodName: SetActive
-        m_Mode: 6
+      - m_Target: {fileID: 243979484}
+        m_MethodName: AllSeen
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
-          m_BoolArgument: 1
+          m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &243979484
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7149315303188570025}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 807fffefb505cad45814bf8511552ad5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  roundCount: 0
+  maxObjects: 8
+  lightOutTime: 0
+  prefabs:
+  - {fileID: 8091960089062838979, guid: 26546c9ad7b7b694daafab9d1cde0b2e, type: 3}
+  - {fileID: 4689105388705477857, guid: 791a157d9d22677468632ccedff4ac3d, type: 3}
+  - {fileID: 6613670661050688694, guid: ec93042032d87c142b0babf36f4b60e4, type: 3}
+  - {fileID: 7564147472215516446, guid: 41653e22303fcff4aaec6a9b7116551b, type: 3}
+  wallColor: {r: 1, g: 0.46672806, b: 0.8784314, a: 1}
 --- !u!1 &7149315303671653385
 GameObject:
   m_ObjectHideFlags: 0

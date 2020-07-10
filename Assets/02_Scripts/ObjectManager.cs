@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class ObjectManager : MonoBehaviour
 {
-    ObjectPlayerLine[] objects;
+    public ObjectPlayerLine[] objects;
     bool allAreVisible;
 
     public GameEvent winningCondition;
@@ -13,7 +13,7 @@ public class ObjectManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        objects = Object.FindObjectsOfType<ObjectPlayerLine>();
+        UpdateObjects();
     }
 
 
@@ -40,5 +40,10 @@ public class ObjectManager : MonoBehaviour
         {
             obj.CheckForVisibility();
         }
+    }
+
+    public void UpdateObjects()
+    {
+        objects = Object.FindObjectsOfType<ObjectPlayerLine>();
     }
 }
