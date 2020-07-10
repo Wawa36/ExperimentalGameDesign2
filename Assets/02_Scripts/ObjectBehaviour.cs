@@ -40,12 +40,18 @@ public class ObjectBehaviour : MonoBehaviour
     {
         if(isMoving)
         {
-            rigidbody.isKinematic = false;
+            //rigidbody.constraints = RigidbodyConstraints.FreezePositionZ | RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ;
+            rigidbody.mass = 1;
+            rigidbody.drag = 0;
+            rigidbody.angularDrag = 0.05f;
             rigidbody.MovePosition(this.rigidbody.position + player.PlayerDirection * playerSpeedMultiplier * -1);
         }
         else
         {
-            rigidbody.isKinematic = true;
+            rigidbody.mass = 1000000;
+            rigidbody.drag = 1000000;
+            rigidbody.angularDrag = 1000000;
+            //rigidbody.constraints = RigidbodyConstraints.FreezeAll;
         }
 
     }
