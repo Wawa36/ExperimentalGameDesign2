@@ -72,8 +72,8 @@ public class ObjectManager : MonoBehaviour
         if (timer >= objectTeleportFrequence)
         {
             // shuffle hiddenObjects
-            List<ObjectPlayerLine> shuffledList = hiddenObjects.OrderBy(x => Random.value).ToList(); // TODO: check if this really works
-            hiddenObjects = shuffledList;
+            //List<ObjectPlayerLine> shuffledList = hiddenObjects.OrderBy(x => Random.value).ToList(); // TODO: check if this really works
+            //hiddenObjects = shuffledList;
 
             bool foundNewObjectToHide = false;
 
@@ -83,10 +83,11 @@ public class ObjectManager : MonoBehaviour
                 if (foundNewObjectToHide)
                     break;
 
-                MeshCollider hiddenObj_collider = hiddenObject.GetComponent<MeshCollider>();
+                Collider hiddenObj_collider = hiddenObject.GetComponent<Collider>();
                 float hiddenObj_radius = hiddenObj_collider.bounds.extents.x * 1.1f;
                 Rigidbody hiddenObj_rigid = hiddenObject.GetComponent<Rigidbody>();
                 Vector3 hiddenObj_originalPosition = hiddenObject.transform.position;
+                ObjectPlayerLine currentObjectThatHides;
 
                 // 2. Check for each object if the hiddenObject can hide behind one, until one is found
                 foreach (ObjectPlayerLine object2HideBehind in objects)
@@ -96,6 +97,8 @@ public class ObjectManager : MonoBehaviour
 
                     if (foundNewObjectToHide)
                         break;
+
+                    print("Objekt, hinter dem sich " + hiddenObject + " verstecken könnte: " + object2HideBehind);
 
                     // (Check on 3 lines (behind objToHideBehind): player-to-objToHideBehind, downwards from that, upwards from that)
                     // Check in steps (radius of objToHide)
@@ -149,10 +152,10 @@ public class ObjectManager : MonoBehaviour
 
     bool ObjectIsWithinGameView(Vector3 position, float radius)
     {
-        return (
-                        Camera.main.WorldToViewportPoint(position).x - radius > 0 &&
-                        Camera.main.WorldToViewportPoint(position).x + radius < 1 &&
-                        Camera.main.WorldToViewportPoint(position).y - radius > 0 &&
-                        Camera.main.WorldToViewportPoint(position).x - radius < 1);
+        return
+            Camera.main.WorldToViewportPoint(position).x - radius > 0 &&
+            Camera.main.WorldToViewportPoint(position).x + radius < 1 &&
+            Camera.main.WorldToViewportPoint(position).y - radius > 0 &&
+            Camera.main.WorldToViewportPoint(position).x - radius < 1;
     }
 }
