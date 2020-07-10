@@ -43,7 +43,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ea9b69a36c2efed4ea02bc7263a1fb62, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  objectTeleportFrequence: 10
+  objectTeleportFrequence: 5
   objects: []
   objectList: []
   hiddenObjects: []
