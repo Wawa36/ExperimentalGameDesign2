@@ -43,6 +43,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ea9b69a36c2efed4ea02bc7263a1fb62, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  objectTeleportFrequence: 10
+  objects: []
+  objectList: []
+  hiddenObjects: []
   winningCondition: {fileID: 11400000, guid: ee15ae8ddb7eab64a84d9548e4ffe216, type: 2}
 --- !u!1 &3118431351399990978
 GameObject:
@@ -58,7 +62,7 @@ GameObject:
   - component: {fileID: 4150414662177455513}
   m_Layer: 0
   m_Name: Camera
-  m_TagString: Untagged
+  m_TagString: MainCamera
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
