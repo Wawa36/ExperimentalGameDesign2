@@ -108,8 +108,8 @@ public class ObjectManager : MonoBehaviour
           
         }
 
-        //FindHiddenObjects();
-        //ManageTeleport();
+        FindHiddenObjects();
+        ManageTeleport();
     }
 
     public void UpdateObjects()
@@ -140,8 +140,8 @@ public class ObjectManager : MonoBehaviour
         if (timer >= objectTeleportFrequence)
         {
             // shuffle hiddenObjects
-            //List<ObjectPlayerLine> shuffledList = hiddenObjects.OrderBy(x => Random.value).ToList(); // TODO: check if this really works
-            //hiddenObjects = shuffledList;
+            List<ObjectPlayerLine> shuffledList = hiddenObjects.OrderBy(x => Random.value).ToList(); // TODO: check if this really works
+            hiddenObjects = shuffledList;
 
             bool foundNewObjectToHide = false;
 
@@ -155,7 +155,10 @@ public class ObjectManager : MonoBehaviour
                 float hiddenObj_radius = hiddenObj_collider.bounds.extents.x * 1.1f;
                 Rigidbody hiddenObj_rigid = hiddenObject.GetComponent<Rigidbody>();
                 Vector3 hiddenObj_originalPosition = hiddenObject.transform.position;
-                ObjectPlayerLine currentObjectThatHides;
+                
+                RaycastHit hitInfo;
+                Physics.Raycast(hiddenObj_originalPosition, player.transform.position - hiddenObj_originalPosition, out hitInfo);
+                ObjectPlayerLine currentlyHidingObj = hitInfo.collider.GetComponent<ObjectPlayerLine>();
 
                 // 2. Check for each object if the hiddenObject can hide behind one, until one is found
                 foreach (ObjectPlayerLine object2HideBehind in objects)
@@ -166,29 +169,33 @@ public class ObjectManager : MonoBehaviour
                     if (foundNewObjectToHide)
                         break;
 
-                    print("Objekt, hinter dem sich " + hiddenObject + " verstecken könnte: " + object2HideBehind);
-
-                    // (Check on 3 lines (behind objToHideBehind): player-to-objToHideBehind, downwards from that, upwards from that)
-                    // Check in steps (radius of objToHide)
-                    // (1) Check for collision with other objects
-                    // (2) Check if not outside gameview
-                    // (3) Check if obj is acutally totally hidden
+                    // TODO
+                    // if object2HideBehind == currentObjectThatIHideBehinde
+                    //  Break;
+                    if (object2HideBehind == currentlyHidingObj)
+                        continue;
 
                     Vector3 mainLine = object2HideBehind.transform.position - player.transform.position;
                     //Vector3 downLine;
                     //Vector3 upLine;
-                    int counter = 1;
+                    int counter = 0;
                     Vector3 position2Check;// = new Vector3();
 
                     do
                     {
+                        // (Check on 3 lines (behind objToHideBehind): player-to-objToHideBehind, downwards from that, upwards from that)
+                        // Check in steps (radius of objToHide)
                         counter++;
-                        position2Check = hiddenObj_originalPosition + mainLine.normalized * hiddenObj_radius * counter;
+                        position2Check = object2HideBehind.transform.position + mainLine.normalized * hiddenObj_radius * counter;
                         hiddenObj_rigid.position = position2Check; // TODO: check if position of the rigid and collider get updated instantly, for the following check
 
                         // (1) check if collision with other objects
+                        //hiddenObject.transform.
                         Collider[] colliders = Physics.OverlapBox(position2Check, hiddenObj_collider.bounds.extents);
-                        if (colliders.Length == 0)
+
+                        //print("in viewport? " + ObjectIsWithinGameView(position2Check, hiddenObj_radius));
+                        //print("counter: " + counter + ", Collision.count: " + colliders.Length);
+                        if (colliders.Length <= 1)
                         {
                             // (2) Check if totally hidden
                             hiddenObject.CheckForVisibility(); // TODO: check if this works correct in this frame
@@ -199,10 +206,15 @@ public class ObjectManager : MonoBehaviour
                                 {
                                     print("TELEPORT");
                                     foundNewObjectToHide = true;
+                                    timer = 0;
                                     break;
                                 }
                             }
                         }
+
+                        Debug.DrawLine(Vector3.zero, hiddenObj_originalPosition, Color.blue, 3f);
+                        Debug.DrawLine(object2HideBehind.transform.position, position2Check, Color.green, 3f);
+                        //Debug.DrawLine()
 
                         if (!foundNewObjectToHide)
                             hiddenObj_rigid.position = hiddenObj_originalPosition;
@@ -220,11 +232,17 @@ public class ObjectManager : MonoBehaviour
 
     bool ObjectIsWithinGameView(Vector3 position, float radius)
     {
+        //print("position.x (world): " + position.x + ", position.x (viewport): " + Camera.main.WorldToViewportPoint(position).x);
+        //print("position.y (world): " + position.y + ", position.y (viewport): " + Camera.main.WorldToViewportPoint(position).y);
+        Vector3 xLeft = new Vector3(position.x - radius, position.y, position.z);
+        Vector3 xRight = new Vector3(position.x + radius, position.y, position.z);
+        Vector3 yUp = new Vector3(position.x, position.y - radius, position.z);
+        Vector3 yDown = new Vector3(position.x, position.y + radius, position.z);
         return
-            Camera.main.WorldToViewportPoint(position).x - radius > 0 &&
-            Camera.main.WorldToViewportPoint(position).x + radius < 1 &&
-            Camera.main.WorldToViewportPoint(position).y - radius > 0 &&
-            Camera.main.WorldToViewportPoint(position).x - radius < 1;
+            Camera.main.WorldToViewportPoint(xLeft).x > 0 &&
+            Camera.main.WorldToViewportPoint(xRight).x < 1 &&
+            Camera.main.WorldToViewportPoint(yUp).y > 0 &&
+            Camera.main.WorldToViewportPoint(yDown).y < 1;
     }
 
     public void FreezeObject(GameObject obj)
