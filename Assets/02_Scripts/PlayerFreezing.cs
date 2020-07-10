@@ -16,7 +16,6 @@ public class PlayerFreezing : MonoBehaviour
 
     public void ActivateNewFreezeShot()
     {
-        Debug.Log(ObjectManager.Instance.maxFreezeNumber);
         for (int i = 0; i < freezeShots.Count; i++)
         {
             freezeShots[i].GetComponent<SpriteRenderer>().color = ObjectManager.Instance.ColorFrozen;
@@ -36,7 +35,6 @@ public class PlayerFreezing : MonoBehaviour
         if (collision.gameObject.tag == "Object" && collisionTimer >= 1f)
         {
             ExpendFreeze();
-            Debug.Log("EXPDENDDD");
             if (this.hasCollided == true) {  return; }
             this.hasCollided = true;
 

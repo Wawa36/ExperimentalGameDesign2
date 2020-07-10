@@ -116,7 +116,6 @@ public class ObjectManager : MonoBehaviour
     {
         objects = null;
         objects = Object.FindObjectsOfType<ObjectPlayerLine>();
-        Debug.Log("SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS " + objects.Length);
 
         objectList.Clear();
         objectList.AddRange(GameObject.FindGameObjectsWithTag("Object"));
