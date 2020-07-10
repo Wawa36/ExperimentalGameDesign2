@@ -36,7 +36,7 @@ public class PlayerFreezing : MonoBehaviour
         if (collision.gameObject.tag == "Object" && collisionTimer >= 1f)
         {
             ExpendFreeze();
-
+            Debug.Log("EXPDENDDD");
             if (this.hasCollided == true) {  return; }
             this.hasCollided = true;
 

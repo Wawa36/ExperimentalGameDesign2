@@ -139,7 +139,7 @@ MonoBehaviour:
   - {x: -0.5, y: 0.5, z: 0}
   m_ShapePathHash: 0
   m_Mesh: {fileID: 0}
-  m_InstanceId: -63994
+  m_InstanceId: -1610
 --- !u!1 &3871088844294317918
 GameObject:
   m_ObjectHideFlags: 0
@@ -196,7 +196,7 @@ MonoBehaviour:
   - {x: -0.46975842, y: 0.44545898, z: 0}
   m_ShapePathHash: 588894001
   m_Mesh: {fileID: 0}
-  m_InstanceId: -63992
+  m_InstanceId: -1612
 --- !u!1 &6613670661050688694
 GameObject:
   m_ObjectHideFlags: 0
@@ -212,6 +212,7 @@ GameObject:
   - component: {fileID: 697000970387688}
   - component: {fileID: 1408340732523854291}
   - component: {fileID: 7216533077008707345}
+  - component: {fileID: 2565626120631558248}
   m_Layer: 0
   m_Name: 2D Rectangle
   m_TagString: Object
@@ -339,3 +340,16 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 2.5, y: 0.5, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &2565626120631558248
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6613670661050688694}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 35a82dece5593504d87a99e448d7fb7d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isCoroutineRunning: 0

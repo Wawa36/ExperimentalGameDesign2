@@ -51,14 +51,17 @@ namespace UnityEngine.Experimental.Rendering.Universal
             FindObjectOfType<PlayerFreezing>().ActivateNewFreezeShot();
             time = 0;
             MakeOneObjectToWall();
-            AddObject();
+            StartCoroutine(AddObject());
             ChangeObjectPlace();
         }
 
-        void AddObject()
+
+
+        IEnumerator AddObject()
         {
+            yield return new WaitForEndOfFrame();
             if(objectManager.objectList.Count < maxObjects)
-            {
+            { 
                 Vector3 position = new Vector3(Random.Range(-16, 16), Random.Range(-8, 8), -0.8f);
                 Instantiate(prefabs[Random.Range(0, prefabs.Length)], position, Quaternion.Euler(-90, 0, 0));
             }

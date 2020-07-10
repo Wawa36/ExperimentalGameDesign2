@@ -56,7 +56,7 @@ MonoBehaviour:
   - {x: 0.014453217, y: 0.38059655, z: 6.297714e-10}
   m_ShapePathHash: 2055883494
   m_Mesh: {fileID: 0}
-  m_InstanceId: -66132
+  m_InstanceId: -1422
 --- !u!1 &3020310670579796948
 GameObject:
   m_ObjectHideFlags: 0
@@ -113,7 +113,7 @@ MonoBehaviour:
   - {x: -0.011237156, y: 0.4568391, z: -0.000000038682252}
   m_ShapePathHash: -1400155562
   m_Mesh: {fileID: 0}
-  m_InstanceId: -66134
+  m_InstanceId: -1416
 --- !u!1 &4578087705432508685
 GameObject:
   m_ObjectHideFlags: 0
@@ -212,6 +212,7 @@ GameObject:
   - component: {fileID: 3689366785711522112}
   - component: {fileID: 2358289780288419963}
   - component: {fileID: 8961803502313074385}
+  - component: {fileID: 935250013202397306}
   m_Layer: 0
   m_Name: 2D Triangle
   m_TagString: Object
@@ -340,3 +341,16 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 4884528999259975639, guid: 7336f587a3c64b64dae78639ceb1b25f, type: 3}
+--- !u!114 &935250013202397306
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7564147472215516446}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 35a82dece5593504d87a99e448d7fb7d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isCoroutineRunning: 0
