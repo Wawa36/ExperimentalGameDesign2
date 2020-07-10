@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using System.Linq;
 using UnityEngine.Experimental.Rendering.Universal; //2019 VERSIONS
 
 
@@ -33,7 +32,6 @@ public class ObjectManager : MonoBehaviour
     }
     #endregion
 
-    ObjectPlayerLine[] objects;
     public float objectTeleportFrequence = 10f;
 
     public ObjectPlayerLine[] objects;
@@ -88,12 +86,12 @@ public class ObjectManager : MonoBehaviour
 
         if (allAreVisible)
         {
-            foreach(ObjectPlayerLine obj in objects)
-            {
-                obj.GetComponentInChildren<Light2D>().enabled = true;
-                obj.GetComponentInChildren<SpriteRenderer>().color = ColorWinning;
-                obj.GetComponent<ObjectBehaviour>().enabled = false;
-            }
+            //foreach(ObjectPlayerLine obj in objects)
+            //{
+            //    //obj.GetComponentInChildren<Light2D>().enabled = true;
+            //    obj.GetComponentInChildren<SpriteRenderer>().color = ColorWinning;
+            //    obj.GetComponent<ObjectBehaviour>().enabled = false;
+            //}
             winningCondition.Raise();
         }
 
@@ -232,24 +230,28 @@ public class ObjectManager : MonoBehaviour
     public void FreezeObject(GameObject obj)
     {
         ObjectFreezeBehaviour freeze = obj.GetComponent<ObjectFreezeBehaviour>();
-        if (obj.GetComponent<ObjectFreezeBehaviour>().isCoroutineRunning)
+        if (obj.GetComponent<ObjectFreezeBehaviour>() != null)
         {
-            freeze.StopFreezeCoroutineRegular();
-            StopCoroutine(freeze.runningFreezeCoroutine);
-        }
-        if (ObjectManager.Instance.freezeCoroutines.Count >= ObjectManager.Instance.maxFreezeNumber)
-        {
-            StopCoroutine(ObjectManager.Instance.freezeCoroutines.Dequeue());
-            frozenObjects.Peek().GetComponent<ObjectBehaviour>().enabled = true;
-            frozenObjects.Peek().GetComponentInChildren<SpriteRenderer>().color = ObjectManager.Instance.ColorNormal;
-            //FindObjectOfType<PlayerFreezing>().RetrieveFreeze();
-            frozenObjects.Dequeue();
-        }
+            if (obj.GetComponent<ObjectFreezeBehaviour>().isCoroutineRunning)
+            {
+                freeze.StopFreezeCoroutineRegular();
+                StopCoroutine(freeze.runningFreezeCoroutine);
+            }
 
-        freeze.runningFreezeCoroutine = StartCoroutine(freeze.Freeze(obj));
+            if (ObjectManager.Instance.freezeCoroutines.Count >= ObjectManager.Instance.maxFreezeNumber)
+            {
+                StopCoroutine(ObjectManager.Instance.freezeCoroutines.Dequeue());
+                frozenObjects.Peek().GetComponent<ObjectBehaviour>().enabled = true;
+                frozenObjects.Peek().GetComponentInChildren<SpriteRenderer>().color = ObjectManager.Instance.ColorNormal;
+                //FindObjectOfType<PlayerFreezing>().RetrieveFreeze();
+                frozenObjects.Dequeue();
+            }
 
-        ObjectManager.Instance.freezeCoroutines.Enqueue(freeze.runningFreezeCoroutine);
-        ObjectManager.Instance.frozenObjects.Enqueue(obj);
+            freeze.runningFreezeCoroutine = StartCoroutine(freeze.Freeze(obj));
+
+            ObjectManager.Instance.freezeCoroutines.Enqueue(freeze.runningFreezeCoroutine);
+            ObjectManager.Instance.frozenObjects.Enqueue(obj);
+        }
+        
     }
-
 }

@@ -39,4 +39,17 @@ public class ObjectFreezeBehaviour : MonoBehaviour
         }
         GetComponentInChildren<SpriteRenderer>().color = ObjectManager.Instance.ColorNormal;
     }
+
+    void OnDestroy()
+    {
+        if (isCoroutineRunning)
+        {
+            StopCoroutine(runningFreezeCoroutine);
+            ObjectManager.Instance.freezeCoroutines.Remove(runningFreezeCoroutine);
+            ObjectManager.Instance.frozenObjects.Remove(this.gameObject);
+            
+
+        }
+        //StopFreezeCoroutineRegular();
+    }
 }

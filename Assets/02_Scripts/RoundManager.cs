@@ -48,6 +48,7 @@ namespace UnityEngine.Experimental.Rendering.Universal
             roundCount++;
             isLightOut = true;
             player.GetComponent<Light2D>().enabled = false;
+            FindObjectOfType<PlayerFreezing>().ActivateNewFreezeShot();
             time = 0;
             MakeOneObjectToWall();
             AddObject();
@@ -68,9 +69,12 @@ namespace UnityEngine.Experimental.Rendering.Universal
         {
             GameObject newWall = objectManager.objectList[Random.Range(0, objectManager.objectList.Count)].gameObject;
             newWall.transform.GetChild(0).GetComponent<SpriteRenderer>().color = wallColor;
+            Destroy(newWall.GetComponent<ObjectFreezeBehaviour>());
             Destroy(newWall.GetComponent<ObjectPlayerLine>());
             Destroy(newWall.GetComponent<ObjectBehaviour>());
             Destroy(newWall.GetComponent<Rigidbody>());
+            ObjectManager.Instance.objects = FindObjectsOfType<ObjectPlayerLine>();
+
             newWall.tag = "Untagged";
 
             objectManager.UpdateObjects();
