@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Floor
   - Object
+  - ObjectManager
   layers:
   - Default
   - TransparentFX
@@ -45,6 +46,9 @@ TagManager:
     locked: 0
   - name: Background
     uniqueID: 1172414535
+    locked: 0
+  - name: SecondShadow
+    uniqueID: 1629076955
     locked: 0
   - name: Objects
     uniqueID: 3885790865

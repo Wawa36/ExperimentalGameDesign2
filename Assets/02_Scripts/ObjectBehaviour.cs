@@ -6,14 +6,14 @@ using UnityEngine;
 public class ObjectBehaviour : MonoBehaviour
 {
     Rigidbody rigidbody;
-    ObjectPlayerLine objectPlayerLine;
+    [SerializeField] ObjectPlayerLine objectPlayerLine;
     bool isMoving;
     bool isTotallyVisible { get { return objectPlayerLine.isTotallyVisible; } set {; } }
     bool isTotallyHidden { get { return objectPlayerLine.isTotallyHidden; } set {; } }
     SpriteRenderer spriteRenderer;
 
     [SerializeField] private float playerSpeedMultiplier;
-    [SerializeField] private PlayerMovement player;
+    private PlayerMovement player;
 
   
     void Start()
@@ -23,6 +23,7 @@ public class ObjectBehaviour : MonoBehaviour
         isMoving = false;
         // TO DO: initialize spriteRenderer
         spriteRenderer = this.GetComponentInChildren<SpriteRenderer>();
+        player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerMovement>();
     }
 
     private void Update()
@@ -41,12 +42,18 @@ public class ObjectBehaviour : MonoBehaviour
     {
         if(isMoving)
         {
-            rigidbody.isKinematic = false;
+            //rigidbody.constraints = RigidbodyConstraints.FreezePositionZ | RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ;
+            rigidbody.mass = 1;
+            rigidbody.drag = 0;
+            rigidbody.angularDrag = 0.05f;
             rigidbody.MovePosition(this.rigidbody.position + player.PlayerDirection * playerSpeedMultiplier * -1);
         }
         else
         {
-            rigidbody.isKinematic = true;
+            rigidbody.mass = 1000000;
+            rigidbody.drag = 1000000;
+            rigidbody.angularDrag = 1000000;
+            //rigidbody.constraints = RigidbodyConstraints.FreezeAll;
         }
 
     }
@@ -87,7 +94,4 @@ public class ObjectBehaviour : MonoBehaviour
         }
     }
 
-
-
-  
 }

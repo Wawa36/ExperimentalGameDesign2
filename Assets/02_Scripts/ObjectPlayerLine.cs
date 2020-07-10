@@ -16,6 +16,11 @@ public class ObjectPlayerLine : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+   
+    }
+
+    private void OnEnable()
+    {
         mesh = GetComponent<MeshFilter>().mesh;
         vertices = mesh.vertices;
 
@@ -78,7 +83,11 @@ public class ObjectPlayerLine : MonoBehaviour
         {
             if(hitPoint.collider.tag == "Object")
             {
-                hitPoint.collider.GetComponent<ObjectPlayerLine>().isIntersected = true;
+                if (hitPoint.collider.GetComponent<ObjectPlayerLine>() != null)
+                {
+                    hitPoint.collider.GetComponent<ObjectPlayerLine>().isIntersected = true;
+                }
+             
             }
         }
     }
