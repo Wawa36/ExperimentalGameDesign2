@@ -10,17 +10,16 @@ public class ObjectFreezeBehaviour : MonoBehaviour
 
     public IEnumerator Freeze()
     {
+        Material mat = transform.GetChild(1).GetComponent<Renderer>().material;
+        mat.SetFloat("_Arc2", 0);
         GetComponentInChildren<SpriteRenderer>().color = ObjectManager.Instance.ColorNormal;
         isCoroutineRunning = true;
-        GetComponentInChildren<SpriteRenderer>().color = ObjectManager.Instance.ColorFrozen;
-        GetComponent<ObjectBehaviour>().enabled = false;
-        GetComponentInChildren<SpriteRenderer>().sortingLayerName = "IsTotallyVisible";
+        GetComponent<ObjectBehaviour>().isFrozen = true;
         var time = 0f;
         while (time < ObjectManager.Instance.freezeCountdown)
         {
             time += Time.deltaTime;
-            GetComponentInChildren<SpriteRenderer>().color
-                = Color.Lerp(ObjectManager.Instance.ColorFrozen, ObjectManager.Instance.ColorNormal, time / ObjectManager.Instance.freezeCountdown);
+            mat.SetFloat("_Arc2", time * 360 / ObjectManager.Instance.freezeCountdown);
             yield return null;
         }
         StopFreezeCoroutine();
@@ -29,15 +28,17 @@ public class ObjectFreezeBehaviour : MonoBehaviour
 
    public void StopFreezeCoroutine()
     {
-        GetComponentInChildren<SpriteRenderer>().sortingLayerName = "Objects";
         if (isCoroutineRunning)
         {
             StopCoroutine(runningFreezeCoroutine);
             isCoroutineRunning = false;
+            Material mat = transform.GetChild(1).GetComponent<Renderer>().material;
+            mat.SetFloat("_Arc2", 360);
+
         }
         if (ObjectManager.Instance.frozenObjects.Contains(this.gameObject))
         {
-            this.gameObject.GetComponent<ObjectBehaviour>().enabled = true;
+            GetComponent<ObjectBehaviour>().isFrozen = false;
             ObjectManager.Instance.frozenObjects.Remove(this.gameObject);
         }
         
