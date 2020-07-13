@@ -243,21 +243,17 @@ public class ObjectManager : MonoBehaviour
         {
             if (freeze.isCoroutineRunning)
             {
-                Debug.Log("number 0: " + frozenObjects.Count);
                 freeze.StopFreezeCoroutine();
-                Debug.Log("number 1: " + frozenObjects.Count);
             }
 
             if (frozenObjects.Count >= ObjectManager.Instance.maxFreezeNumber)
             {
-                Debug.Log("HI: " + frozenObjects.Peek());
                 frozenObjects.Dequeue().GetComponent<ObjectFreezeBehaviour>().StopFreezeCoroutine();
             }
 
             player.GetComponent<PlayerFreezing>().ExpendFreeze();
-            freeze.runningFreezeCoroutine = StartCoroutine(freeze.Freeze());
+            freeze.StartFreezeCoroutine();
             frozenObjects.Enqueue(obj);
-            Debug.Log("number 2: " + frozenObjects.Count);
         }
         
     }

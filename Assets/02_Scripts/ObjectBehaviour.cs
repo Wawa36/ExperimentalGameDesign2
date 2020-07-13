@@ -15,15 +15,11 @@ public class ObjectBehaviour : MonoBehaviour
     [SerializeField] private float playerSpeedMultiplier;
     private PlayerMovement player;
 
-    AudioManager audioManager;
-
-    void Awake()
-    {
-        audioManager = this.GetComponent<AudioManager>();
-    }
+    public bool isFrozen;
   
     void Start()
     {
+        GetComponentInChildren<SpriteRenderer>().color = ObjectManager.Instance.ColorNormal;
         rigidbody = this.GetComponent<Rigidbody>();
         objectPlayerLine = this.GetComponent<ObjectPlayerLine>();
         isMoving = false;
@@ -34,7 +30,10 @@ public class ObjectBehaviour : MonoBehaviour
 
     private void Update()
     {
-        SetMovement();
+        if (!isFrozen)
+        {
+            SetMovement();
+        }
 
         SetVisibility();
 
@@ -117,7 +116,4 @@ public class ObjectBehaviour : MonoBehaviour
             //print("change to no");
         }
     }
-
-
-
 }
