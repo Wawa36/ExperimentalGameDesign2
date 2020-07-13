@@ -34,11 +34,11 @@ public class ObjectManager : MonoBehaviour
 
     public float objectTeleportFrequence = 10f;
 
-    [HideInInspector]
+    //[HideInInspector]
     public ObjectPlayerLine[] objects;
-    [HideInInspector]
+    //[HideInInspector]
     public List<GameObject> objectList = new List<GameObject>();
-    [HideInInspector]
+    //[HideInInspector]
     public List<ObjectPlayerLine> hiddenObjects;
     bool allAreVisible;
     PlayerMovement player;
