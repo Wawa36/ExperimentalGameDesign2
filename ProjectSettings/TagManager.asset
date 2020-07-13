@@ -63,3 +63,6 @@ TagManager:
   - name: IsTotallyVisible
     uniqueID: 3067806219
     locked: 0
+  - name: Title
+    uniqueID: 3021268595
+    locked: 0

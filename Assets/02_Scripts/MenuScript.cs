@@ -7,8 +7,8 @@ public class MenuScript : MonoBehaviour
 {
     private void Start()
     {
-        FindObjectOfType<ObjectManager>().enabled = false;
-        Time.timeScale = 0;
+        //FindObjectOfType<ObjectManager>().enabled = false;
+        //Time.timeScale = 0;
     }
 
     public void RestartScene()
