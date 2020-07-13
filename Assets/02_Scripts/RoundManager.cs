@@ -59,17 +59,17 @@ namespace UnityEngine.Experimental.Rendering.Universal
                     player.GetComponent<Light2D>().pointLightOuterRadius = 4;
 
                     //FindObjectOfType<PlayerFreezing>().ActivateNewFreezeShot();
-                    foreach (ObjectPlayerLine oPL in ObjectManager.Instance.objects)
-                    {
-                        if (oPL != null)
-                        {
-                            oPL.GetComponentInChildren<SpriteRenderer>().color = ObjectManager.Instance.ColorNormal;
-                            if (oPL.GetComponent<ObjectFreezeBehaviour>().isCoroutineRunning)
-                            {
-                                StopCoroutine(oPL.GetComponent<ObjectFreezeBehaviour>().runningFreezeCoroutine);
-                            }
-                        }
-                    }
+                    //foreach (ObjectPlayerLine oPL in ObjectManager.Instance.objects)
+                    //{
+                    //    if (oPL != null)
+                    //    {
+                    //        oPL.GetComponentInChildren<SpriteRenderer>().color = ObjectManager.Instance.ColorNormal;
+                    //        if (oPL.GetComponent<ObjectFreezeBehaviour>().isCoroutineRunning)
+                    //        {
+                    //            StopCoroutine(oPL.GetComponent<ObjectFreezeBehaviour>().runningFreezeCoroutine);
+                    //        }
+                    //    }
+                    //}
 
                     if (Random.value > 0.5)
                     {

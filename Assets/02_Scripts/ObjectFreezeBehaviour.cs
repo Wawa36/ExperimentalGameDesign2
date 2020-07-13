@@ -8,18 +8,18 @@ public class ObjectFreezeBehaviour : MonoBehaviour
     public bool isCoroutineRunning;
 
 
-    public IEnumerator Freeze(GameObject obj)
+    public IEnumerator Freeze()
     {
-        obj.GetComponentInChildren<SpriteRenderer>().color = ObjectManager.Instance.ColorNormal;
+        GetComponentInChildren<SpriteRenderer>().color = ObjectManager.Instance.ColorNormal;
         isCoroutineRunning = true;
-        obj.GetComponentInChildren<SpriteRenderer>().color = ObjectManager.Instance.ColorFrozen;
-        obj.GetComponent<ObjectBehaviour>().enabled = false;
-        obj.GetComponentInChildren<SpriteRenderer>().sortingLayerName = "IsTotallyVisible";
+        GetComponentInChildren<SpriteRenderer>().color = ObjectManager.Instance.ColorFrozen;
+        GetComponent<ObjectBehaviour>().enabled = false;
+        GetComponentInChildren<SpriteRenderer>().sortingLayerName = "IsTotallyVisible";
         var time = 0f;
         while (time < ObjectManager.Instance.freezeCountdown)
         {
             time += Time.deltaTime;
-            obj.GetComponentInChildren<SpriteRenderer>().color
+            GetComponentInChildren<SpriteRenderer>().color
                 = Color.Lerp(ObjectManager.Instance.ColorFrozen, ObjectManager.Instance.ColorNormal, time / ObjectManager.Instance.freezeCountdown);
             yield return null;
         }
@@ -29,17 +29,18 @@ public class ObjectFreezeBehaviour : MonoBehaviour
 
    public void StopFreezeCoroutine()
     {
+        GetComponentInChildren<SpriteRenderer>().sortingLayerName = "Objects";
         if (isCoroutineRunning)
         {
             StopCoroutine(runningFreezeCoroutine);
-
+            isCoroutineRunning = false;
         }
         if (ObjectManager.Instance.frozenObjects.Contains(this.gameObject))
         {
             this.gameObject.GetComponent<ObjectBehaviour>().enabled = true;
             ObjectManager.Instance.frozenObjects.Remove(this.gameObject);
         }
-
+        
         GetComponentInChildren<SpriteRenderer>().color = ObjectManager.Instance.ColorNormal;
         FindObjectOfType<PlayerFreezing>().RetrieveFreeze();
     }

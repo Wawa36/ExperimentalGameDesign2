@@ -95,12 +95,6 @@ public class ObjectManager : MonoBehaviour
 
         if (allAreVisible)
         {
-            foreach (GameObject obj in objectList)
-            {
-                obj.GetComponentInChildren<Light2D>().enabled = true;
-                obj.GetComponentInChildren<SpriteRenderer>().color = ColorWinning;
-                obj.GetComponent<ObjectBehaviour>().enabled = false;
-            }
             winningCondition.Raise();
         }
 
@@ -249,20 +243,21 @@ public class ObjectManager : MonoBehaviour
         {
             if (freeze.isCoroutineRunning)
             {
+                Debug.Log("number 0: " + frozenObjects.Count);
                 freeze.StopFreezeCoroutine();
+                Debug.Log("number 1: " + frozenObjects.Count);
             }
 
             if (frozenObjects.Count >= ObjectManager.Instance.maxFreezeNumber)
             {
-                StopCoroutine(frozenObjects.Peek().GetComponent<ObjectFreezeBehaviour>().runningFreezeCoroutine);
-                frozenObjects.Peek().GetComponent<ObjectBehaviour>().enabled = true;
-                frozenObjects.Peek().GetComponentInChildren<SpriteRenderer>().color = ObjectManager.Instance.ColorNormal;
-                frozenObjects.Dequeue();
+                Debug.Log("HI: " + frozenObjects.Peek());
+                frozenObjects.Dequeue().GetComponent<ObjectFreezeBehaviour>().StopFreezeCoroutine();
             }
 
             player.GetComponent<PlayerFreezing>().ExpendFreeze();
-            freeze.runningFreezeCoroutine = StartCoroutine(freeze.Freeze(obj));
-            ObjectManager.Instance.frozenObjects.Enqueue(obj);
+            freeze.runningFreezeCoroutine = StartCoroutine(freeze.Freeze());
+            frozenObjects.Enqueue(obj);
+            Debug.Log("number 2: " + frozenObjects.Count);
         }
         
     }
