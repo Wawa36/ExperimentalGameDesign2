@@ -19,6 +19,7 @@ public class ObjectBehaviour : MonoBehaviour
   
     void Start()
     {
+        GetComponentInChildren<SpriteRenderer>().color = ObjectManager.Instance.ColorNormal;
         rigidbody = this.GetComponent<Rigidbody>();
         objectPlayerLine = this.GetComponent<ObjectPlayerLine>();
         isMoving = false;
