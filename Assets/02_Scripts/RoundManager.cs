@@ -127,7 +127,7 @@ namespace UnityEngine.Experimental.Rendering.Universal
             Destroy(newWall.GetComponent<Rigidbody>());
             ObjectManager.Instance.objects = FindObjectsOfType<ObjectPlayerLine>();
 
-            newWall.tag = "Untagged";
+            newWall.tag = "Wall";
 
             objectManager.UpdateObjects();
         }
@@ -139,6 +139,7 @@ namespace UnityEngine.Experimental.Rendering.Universal
             { 
                 Vector3 position = new Vector3(Random.Range(-16, 16), Random.Range(-8, 8), -0.8f);
                 GameObject newObject = Instantiate(prefabs[Random.Range(0, prefabs.Length)], position, Quaternion.Euler(-90, 0, 0));
+                newObject.transform.localScale = newObject.transform.localScale * Random.Range(0.75f, 2f);
             }
             objectManager.UpdateObjects();
         }
