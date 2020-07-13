@@ -34,14 +34,17 @@ public class ObjectManager : MonoBehaviour
 
     public float objectTeleportFrequence = 10f;
 
+    [HideInInspector]
     public ObjectPlayerLine[] objects;
+    [HideInInspector]
     public List<GameObject> objectList = new List<GameObject>();
+    [HideInInspector]
     public List<ObjectPlayerLine> hiddenObjects;
     bool allAreVisible;
     PlayerMovement player;
 
     public GameEvent winningCondition;
-    float timer = 0;
+    public float timer = 0;
 
     public ListQueue<Coroutine> freezeCoroutines;
     // I need this because I am to lazy to find a better solution
@@ -160,7 +163,7 @@ public class ObjectManager : MonoBehaviour
                 Physics.Raycast(hiddenObj_originalPosition, player.transform.position - hiddenObj_originalPosition, out hitInfo);
                 ObjectPlayerLine currentlyHidingObj = hitInfo.collider.GetComponent<ObjectPlayerLine>();
 
-                // 2. Check for each object if the hiddenObject can hide behind one, until one is found
+                // 2. Check for each other object if the hiddenObject can hide behind one, until one is found
                 foreach (ObjectPlayerLine object2HideBehind in objects)
                 {
                     if (object2HideBehind == hiddenObject)
@@ -181,7 +184,6 @@ public class ObjectManager : MonoBehaviour
 
                     do
                     {
-                        
                         // Check in steps (radius of objToHide)
                         counter++;
                         position2Check = object2HideBehind.transform.position + mainLine.normalized * hiddenObj_radius * counter;
@@ -189,7 +191,7 @@ public class ObjectManager : MonoBehaviour
 
                         // (1) check if collision with other objects
                         Collider[] colliders = Physics.OverlapBox(position2Check, hiddenObj_collider.bounds.extents);
-                        if (colliders.Length <= 1)
+                        if (colliders.Length <= 1) // 1, weil OverlapBox mit dem eigenen Collider kollidiert; zu faul layermask zu erstellen
                         {
                             // (2) Check if totally hidden
                             hiddenObject.CheckForVisibility(); // TODO: check if this works correct in this frame
@@ -198,10 +200,14 @@ public class ObjectManager : MonoBehaviour
                                 // (3) Check if is within game view
                                 if (ObjectIsWithinGameView(position2Check, hiddenObj_radius))
                                 {
-                                    print("TELEPORT");
-                                    foundNewObjectToHide = true;
-                                    timer = 0;
-                                    break;
+                                    // (4) Check if hiddenObject is not frozen
+                                    if (!hiddenObject.GetComponent<ObjectFreezeBehaviour>().isCoroutineRunning)
+                                    {
+                                        print("TELEPORT");
+                                        foundNewObjectToHide = true;
+                                        timer = 0;
+                                        break;
+                                    }
                                 }
                             }
                         }
@@ -220,8 +226,6 @@ public class ObjectManager : MonoBehaviour
 
     bool ObjectIsWithinGameView(Vector3 position, float radius)
     {
-        //print("position.x (world): " + position.x + ", position.x (viewport): " + Camera.main.WorldToViewportPoint(position).x);
-        //print("position.y (world): " + position.y + ", position.y (viewport): " + Camera.main.WorldToViewportPoint(position).y);
         Vector3 xLeft = new Vector3(position.x - radius, position.y, position.z);
         Vector3 xRight = new Vector3(position.x + radius, position.y, position.z);
         Vector3 yUp = new Vector3(position.x, position.y - radius, position.z);
