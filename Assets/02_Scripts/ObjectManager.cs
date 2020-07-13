@@ -59,7 +59,6 @@ public class ObjectManager : MonoBehaviour
     void Start()
     {
         objects = Object.FindObjectsOfType<ObjectPlayerLine>();
-        freezeCoroutines = new ListQueue<Coroutine>();
         frozenObjects = new ListQueue<GameObject>();
         player = GameObject.FindObjectOfType<PlayerMovement>();
         Physics.autoSyncTransforms = true;
@@ -91,7 +90,6 @@ public class ObjectManager : MonoBehaviour
                 obj.GetComponentInChildren<Light2D>().enabled = true;
                 obj.GetComponentInChildren<SpriteRenderer>().color = ColorWinning;
                 obj.GetComponent<ObjectBehaviour>().enabled = false;
-                Debug.Break();
             }
             winningCondition.Raise();
         }
@@ -253,22 +251,18 @@ public class ObjectManager : MonoBehaviour
         {
             if (obj.GetComponent<ObjectFreezeBehaviour>().isCoroutineRunning)
             {
-                freeze.StopFreezeCoroutineRegular();
-                StopCoroutine(freeze.runningFreezeCoroutine);
+                freeze.StopFreezeCoroutine();
             }
 
-            if (ObjectManager.Instance.freezeCoroutines.Count >= ObjectManager.Instance.maxFreezeNumber)
+            if (ObjectManager.Instance.frozenObjects.Count >= ObjectManager.Instance.maxFreezeNumber)
             {
-                StopCoroutine(ObjectManager.Instance.freezeCoroutines.Dequeue());
+                StopCoroutine(ObjectManager.Instance.frozenObjects.Peek().GetComponent<ObjectFreezeBehaviour>().runningFreezeCoroutine);
                 frozenObjects.Peek().GetComponent<ObjectBehaviour>().enabled = true;
                 frozenObjects.Peek().GetComponentInChildren<SpriteRenderer>().color = ObjectManager.Instance.ColorNormal;
-                //FindObjectOfType<PlayerFreezing>().RetrieveFreeze();
                 frozenObjects.Dequeue();
             }
 
             freeze.runningFreezeCoroutine = StartCoroutine(freeze.Freeze(obj));
-
-            ObjectManager.Instance.freezeCoroutines.Enqueue(freeze.runningFreezeCoroutine);
             ObjectManager.Instance.frozenObjects.Enqueue(obj);
         }
         
