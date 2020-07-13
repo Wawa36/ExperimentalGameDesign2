@@ -729,7 +729,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   roundCount: 0
-  maxObjects: 8
+  maxObjects: 7
   lightOutTime: 0.5
   orangeTime: 2
   prefabs:
@@ -737,7 +737,7 @@ MonoBehaviour:
   - {fileID: 4689105388705477857, guid: 791a157d9d22677468632ccedff4ac3d, type: 3}
   - {fileID: 6613670661050688694, guid: ec93042032d87c142b0babf36f4b60e4, type: 3}
   - {fileID: 7564147472215516446, guid: 41653e22303fcff4aaec6a9b7116551b, type: 3}
-  wallColor: {r: 1, g: 0.46672806, b: 0.8784314, a: 1}
+  wallColor: {r: 0.3207547, g: 0.3207547, b: 0.3207547, a: 1}
 --- !u!1 &7149315303671653385
 GameObject:
   m_ObjectHideFlags: 0
