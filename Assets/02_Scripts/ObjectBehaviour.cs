@@ -16,7 +16,12 @@ public class ObjectBehaviour : MonoBehaviour
     private PlayerMovement player;
 
     public bool isFrozen;
-  
+    AudioManager audioManager;
+    void Awake()
+    {
+        audioManager = this.GetComponent<AudioManager>();
+    }
+
     void Start()
     {
         GetComponentInChildren<SpriteRenderer>().color = ObjectManager.Instance.ColorNormal;
@@ -72,7 +77,7 @@ public class ObjectBehaviour : MonoBehaviour
             if (isTotallyHidden && player.PlayerDirection.magnitude >= 0.01)
             {
                 audioManager.Play("Move");
-                print("move");
+                //print("move");
             }
             else
             {

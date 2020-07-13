@@ -9,7 +9,7 @@ public class AudioManager : MonoBehaviour
     public Sound[] sounds;
     GlobalAudioSettings audioSettings;
 
-    void Awake()
+    void Start()
     {
         //if (instance == null && this.name == "Audiomanager")
         //    instance = this;
@@ -26,6 +26,7 @@ public class AudioManager : MonoBehaviour
             s.source.pitch = s.pitch;
             s.source.loop = s.loop;
 
+            print("gameobj: " + this.gameObject.name);
             s.source.spatialBlend = GlobalAudioSettings.instance.spatialBlend;
             s.source.rolloffMode = GlobalAudioSettings.instance.rolloffMode;
             s.source.maxDistance = GlobalAudioSettings.instance.maxDistance;
@@ -36,12 +37,7 @@ public class AudioManager : MonoBehaviour
         }
     }
 
-    void Start()
-    {
-        
-
-        //Play("ObjectMove");
-    }
+    
 
     // Update is called once per frame
     void Update()
