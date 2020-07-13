@@ -14,9 +14,9 @@ public class ObjectBehaviour : MonoBehaviour
 
     [SerializeField] private float playerSpeedMultiplier;
     private PlayerMovement player;
+    AudioManager audioManager;
 
     public bool isFrozen;
-    AudioManager audioManager;
     void Awake()
     {
         audioManager = this.GetComponent<AudioManager>();
