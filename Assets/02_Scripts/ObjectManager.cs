@@ -169,32 +169,26 @@ public class ObjectManager : MonoBehaviour
                     if (foundNewObjectToHide)
                         break;
 
-                    // TODO
-                    // if object2HideBehind == currentObjectThatIHideBehinde
-                    //  Break;
                     if (object2HideBehind == currentlyHidingObj)
                         continue;
 
+                    // (Check on 3 lines (behind objToHideBehind): player-to-objToHideBehind, downwards from that, upwards from that)
                     Vector3 mainLine = object2HideBehind.transform.position - player.transform.position;
                     //Vector3 downLine;
                     //Vector3 upLine;
                     int counter = 0;
-                    Vector3 position2Check;// = new Vector3();
+                    Vector3 position2Check;
 
                     do
                     {
-                        // (Check on 3 lines (behind objToHideBehind): player-to-objToHideBehind, downwards from that, upwards from that)
+                        
                         // Check in steps (radius of objToHide)
                         counter++;
                         position2Check = object2HideBehind.transform.position + mainLine.normalized * hiddenObj_radius * counter;
                         hiddenObj_rigid.position = position2Check; // TODO: check if position of the rigid and collider get updated instantly, for the following check
 
                         // (1) check if collision with other objects
-                        //hiddenObject.transform.
                         Collider[] colliders = Physics.OverlapBox(position2Check, hiddenObj_collider.bounds.extents);
-
-                        //print("in viewport? " + ObjectIsWithinGameView(position2Check, hiddenObj_radius));
-                        //print("counter: " + counter + ", Collision.count: " + colliders.Length);
                         if (colliders.Length <= 1)
                         {
                             // (2) Check if totally hidden
@@ -212,10 +206,6 @@ public class ObjectManager : MonoBehaviour
                             }
                         }
 
-                        Debug.DrawLine(Vector3.zero, hiddenObj_originalPosition, Color.blue, 3f);
-                        Debug.DrawLine(object2HideBehind.transform.position, position2Check, Color.green, 3f);
-                        //Debug.DrawLine()
-
                         if (!foundNewObjectToHide)
                             hiddenObj_rigid.position = hiddenObj_originalPosition;
 
@@ -224,8 +214,6 @@ public class ObjectManager : MonoBehaviour
                     while (ObjectIsWithinGameView(position2Check, hiddenObj_radius)); // TODO: check if this really works
 
                 }
-                //ObjectPlayerLine newObjectToHide = 
-                // if geklappt, dann timer = 0;
             }
         }
     }
