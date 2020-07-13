@@ -29,7 +29,7 @@ public class PlayerFreezing : MonoBehaviour
             }
         }
     }
-
+     
     void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.tag == "Object" && collisionTimer >= 1f)
@@ -37,7 +37,6 @@ public class PlayerFreezing : MonoBehaviour
             ExpendFreeze();
             if (this.hasCollided == true) {  return; }
             this.hasCollided = true;
-
             ObjectManager.Instance.FreezeObject(collision.gameObject);
             StartCoroutine(CollisionCooldown());
         }

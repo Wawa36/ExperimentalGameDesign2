@@ -86,16 +86,17 @@ public class ObjectManager : MonoBehaviour
 
         if (allAreVisible)
         {
-            //foreach(ObjectPlayerLine obj in objects)
-            //{
-            //    //obj.GetComponentInChildren<Light2D>().enabled = true;
-            //    obj.GetComponentInChildren<SpriteRenderer>().color = ColorWinning;
-            //    obj.GetComponent<ObjectBehaviour>().enabled = false;
-            //}
+            foreach (ObjectPlayerLine obj in objects)
+            {
+                obj.GetComponentInChildren<Light2D>().enabled = true;
+                obj.GetComponentInChildren<SpriteRenderer>().color = ColorWinning;
+                obj.GetComponent<ObjectBehaviour>().enabled = false;
+                Debug.Break();
+            }
             winningCondition.Raise();
         }
 
-        foreach(ObjectPlayerLine obj in objects)
+        foreach (ObjectPlayerLine obj in objects)
         {
             if(obj != null)
             {

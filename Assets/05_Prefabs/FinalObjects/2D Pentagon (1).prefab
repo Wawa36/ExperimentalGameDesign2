@@ -57,7 +57,7 @@ MonoBehaviour:
   - {x: -4.794507, y: 1.1935834, z: -0.0000004646255}
   m_ShapePathHash: -1050979342
   m_Mesh: {fileID: 0}
-  m_InstanceId: -144328
+  m_InstanceId: -1376
 --- !u!1 &1613113362040264946
 GameObject:
   m_ObjectHideFlags: 0
@@ -198,7 +198,7 @@ MonoBehaviour:
   - {x: -4.231346, y: 0.90130436, z: -0.0000006978105}
   m_ShapePathHash: -707284031
   m_Mesh: {fileID: 0}
-  m_InstanceId: -144330
+  m_InstanceId: -1378
 --- !u!1 &4689105388705477857
 GameObject:
   m_ObjectHideFlags: 0
@@ -395,18 +395,18 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6841789494005888610}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 073797afb82c5a1438f328866b10b3f0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_LightType: 3
   m_BlendStyleIndex: 0
-  m_FalloffIntensity: 0.82
+  m_FalloffIntensity: 0.307
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Intensity: 2
+  m_Intensity: 2.22
   m_LightVolumeOpacity: 0
-  m_ApplyToSortingLayers: 00000000
+  m_ApplyToSortingLayers: 000000000b02dbb6
   m_LightCookieSprite: {fileID: 0}
   m_UseNormalMap: 0
   m_LightOrder: 0
@@ -416,7 +416,7 @@ MonoBehaviour:
   m_PointLightInnerAngle: 360
   m_PointLightOuterAngle: 360
   m_PointLightInnerRadius: 0
-  m_PointLightOuterRadius: 1
+  m_PointLightOuterRadius: 3
   m_PointLightDistance: 3
   m_PointLightQuality: 1
   m_ShapeLightParametricSides: 5

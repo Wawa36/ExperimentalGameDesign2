@@ -49,12 +49,12 @@ namespace UnityEngine.Experimental.Rendering.Universal
             isLightOut = true;
             player.GetComponent<Light2D>().enabled = false;
             FindObjectOfType<PlayerFreezing>().ActivateNewFreezeShot();
-            foreach(ObjectPlayerLine oPL in ObjectManager.Instance.objects)
+            foreach (ObjectPlayerLine oPL in ObjectManager.Instance.objects)
             {
                 oPL.GetComponentInChildren<SpriteRenderer>().color = ObjectManager.Instance.ColorNormal;
                 if (oPL.GetComponent<ObjectFreezeBehaviour>().isCoroutineRunning)
                 {
-                StopCoroutine(oPL.GetComponent<ObjectFreezeBehaviour>().runningFreezeCoroutine);
+                    StopCoroutine(oPL.GetComponent<ObjectFreezeBehaviour>().runningFreezeCoroutine);
 
                 }
             }
