@@ -143,7 +143,6 @@ namespace UnityEngine.Experimental.Rendering.Universal
             objectManager.UpdateObjects();
         }
 
-
         void ChangeObjectPlace()
         {
            foreach(GameObject gameObject in objectManager.objectList)
@@ -151,7 +150,7 @@ namespace UnityEngine.Experimental.Rendering.Universal
                 int count = 0;
                 int nbrOfColliders = int.MaxValue;
 
-                while(nbrOfColliders > 0 && count < 100) //max 100 tries
+                while(nbrOfColliders > 1 && count < 100) //max 100 tries
                 {
                     Vector3 position = new Vector3(Random.Range(-16, 16), Random.Range(-8, 8), -0.8f);
                     gameObject.transform.position = position;
@@ -161,8 +160,9 @@ namespace UnityEngine.Experimental.Rendering.Universal
 
                     count++;
                 }
-                Debug.Log("checked "+count+ " times");
+
             }
         }
+
     }
 }
