@@ -259,6 +259,7 @@ GameObject:
   - component: {fileID: 1205466755}
   - component: {fileID: 1205466756}
   - component: {fileID: 1695018549}
+  - component: {fileID: 7660478349781726288}
   m_Layer: 0
   m_Name: 2D Player
   m_TagString: Player
@@ -432,6 +433,14 @@ MonoBehaviour:
   - {fileID: 457986647703445668}
   - {fileID: 191535791155426542}
   - {fileID: 8638844424394292385}
+--- !u!81 &7660478349781726288
+AudioListener:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6677313027740695730}
+  m_Enabled: 1
 --- !u!1 &6677313028153092681
 GameObject:
   m_ObjectHideFlags: 0

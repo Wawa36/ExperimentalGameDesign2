@@ -26,14 +26,12 @@ public class AudioManager : MonoBehaviour
             s.source.pitch = s.pitch;
             s.source.loop = s.loop;
 
-            print("gameobj: " + this.gameObject.name);
             s.source.spatialBlend = GlobalAudioSettings.instance.spatialBlend;
             s.source.rolloffMode = GlobalAudioSettings.instance.rolloffMode;
             s.source.maxDistance = GlobalAudioSettings.instance.maxDistance;
             if (GlobalAudioSettings.instance.rolloffMode == AudioRolloffMode.Custom)
                 s.source.SetCustomCurve(AudioSourceCurveType.CustomRolloff, GlobalAudioSettings.instance.customSpacialCurve);
-            else
-                s.source.rolloffMode = GlobalAudioSettings.instance.rolloffMode;
+
         }
     }
 
