@@ -10,6 +10,7 @@ public class ObjectFreezeBehaviour : MonoBehaviour
 
     public IEnumerator Freeze(GameObject obj)
     {
+        obj.GetComponentInChildren<SpriteRenderer>().color = ObjectManager.Instance.ColorNormal;
         isCoroutineRunning = true;
         obj.GetComponentInChildren<SpriteRenderer>().color = ObjectManager.Instance.ColorFrozen;
         obj.GetComponent<ObjectBehaviour>().enabled = false;
@@ -27,11 +28,17 @@ public class ObjectFreezeBehaviour : MonoBehaviour
 
    public void StopFreezeCoroutine()
     {
+        if (isCoroutineRunning)
+        {
+            StopCoroutine(runningFreezeCoroutine);
+
+        }
         if (ObjectManager.Instance.frozenObjects.Contains(this.gameObject))
         {
             this.gameObject.GetComponent<ObjectBehaviour>().enabled = true;
             ObjectManager.Instance.frozenObjects.Remove(this.gameObject);
         }
+
         GetComponentInChildren<SpriteRenderer>().color = ObjectManager.Instance.ColorNormal;
         FindObjectOfType<PlayerFreezing>().RetrieveFreeze();
     }

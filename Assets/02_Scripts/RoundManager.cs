@@ -49,8 +49,9 @@ namespace UnityEngine.Experimental.Rendering.Universal
             isLightOut = true;
             player.GetComponent<Light2D>().enabled = false;
             FindObjectOfType<PlayerFreezing>().ActivateNewFreezeShot();
-            foreach (ObjectPlayerLine oPL in ObjectManager.Instance.objects)
+            foreach (GameObject obj in ObjectManager.Instance.objectList)
             {
+                ObjectPlayerLine oPL = obj.GetComponent<ObjectPlayerLine>();
                 oPL.GetComponentInChildren<SpriteRenderer>().color = ObjectManager.Instance.ColorNormal;
                 if (oPL.GetComponent<ObjectFreezeBehaviour>().isCoroutineRunning)
                 {
@@ -85,7 +86,6 @@ namespace UnityEngine.Experimental.Rendering.Universal
             Destroy(newWall.GetComponent<ObjectPlayerLine>());
             Destroy(newWall.GetComponent<ObjectBehaviour>());
             Destroy(newWall.GetComponent<Rigidbody>());
-            ObjectManager.Instance.objects = FindObjectsOfType<ObjectPlayerLine>();
 
             newWall.tag = "Untagged";
 
