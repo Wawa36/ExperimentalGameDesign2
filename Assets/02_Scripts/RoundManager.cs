@@ -53,11 +53,6 @@ namespace UnityEngine.Experimental.Rendering.Universal
                         gameObject.GetComponentInChildren<SpriteRenderer>().material = objectManager.lit;
                     }
 
-                    foreach (GameObject gameObject in objectManager.wallList)
-                    {
-                        gameObject.GetComponentInChildren<SpriteRenderer>().material = objectManager.unlit;
-                    }
-
                     player.GetComponent<PlayerMovement>().speed = 0;
 
 
@@ -76,7 +71,7 @@ namespace UnityEngine.Experimental.Rendering.Universal
                     //    }
                     //}
 
-                    if (Random.value > 0.5)
+                    if (Random.value > 0.5f)
                     {
                         MakeOneObjectToWall();
                     }
@@ -84,6 +79,10 @@ namespace UnityEngine.Experimental.Rendering.Universal
                     AddObject();
                     ChangeObjectPlace();
 
+                    foreach (GameObject gameObject in objectManager.wallList)
+                    {
+                        gameObject.GetComponentInChildren<SpriteRenderer>().material = objectManager.unlit;
+                    }
 
                     time = 0;
                 }
@@ -136,6 +135,8 @@ namespace UnityEngine.Experimental.Rendering.Universal
             Destroy(newWall.GetComponent<ObjectBehaviour>());
             Destroy(newWall.GetComponent<Rigidbody>());
 
+            newWall.transform.GetChild(0).GetComponent<SpriteRenderer>().sortingLayerName = "Objects";
+
             newWall.tag = "Wall";
 
             objectManager.UpdateObjects();
@@ -148,7 +149,7 @@ namespace UnityEngine.Experimental.Rendering.Universal
             { 
                 Vector3 position = new Vector3(Random.Range(-16, 16), Random.Range(-8, 8), -0.8f);
                 GameObject newObject = Instantiate(prefabs[Random.Range(0, prefabs.Length)], position, Quaternion.Euler(-90, 0, 0));
-                newObject.transform.localScale = newObject.transform.localScale * Random.Range(1f, 3f);
+                newObject.transform.localScale = newObject.transform.localScale * Random.Range(1f, 2f);
             }
             objectManager.UpdateObjects();
         }

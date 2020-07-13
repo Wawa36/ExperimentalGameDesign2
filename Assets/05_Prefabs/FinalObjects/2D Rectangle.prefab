@@ -213,6 +213,7 @@ GameObject:
   - component: {fileID: 1408340732523854291}
   - component: {fileID: 7216533077008707345}
   - component: {fileID: 2565626120631558248}
+  - component: {fileID: 4279852912390345205}
   m_Layer: 0
   m_Name: 2D Rectangle
   m_TagString: Object
