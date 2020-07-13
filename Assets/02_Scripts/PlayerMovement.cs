@@ -6,7 +6,7 @@ public class PlayerMovement : MonoBehaviour
 {
     Rigidbody rigidbody;
 
-    [SerializeField] private float speed;
+    [SerializeField] public float speed;
     private Vector3 playerDirection;
 
     public Vector3 PlayerDirection

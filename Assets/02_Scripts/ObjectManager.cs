@@ -38,6 +38,7 @@ public class ObjectManager : MonoBehaviour
     public ObjectPlayerLine[] objects;
     //[HideInInspector]
     public List<GameObject> objectList = new List<GameObject>();
+    public List<GameObject> wallList = new List<GameObject>();
     List<ObjectPlayerLine> objects_scripts;
     //[HideInInspector]
     public List<ObjectPlayerLine> hiddenObjects;
@@ -59,11 +60,13 @@ public class ObjectManager : MonoBehaviour
     public Color ColorFrozen;
     public Color ColorWinning;
 
+    [Header("MATERIALS")]
+    public Material lit; //lol das ist Julians Spiel! 
+    public Material unlit; //und das ist das gegenteil von Julians Spiel!
+
     // Start is called before the first frame update
     void Start()
     {
-        objects = Object.FindObjectsOfType<ObjectPlayerLine>();
-        freezeCoroutines = new ListQueue<Coroutine>();
         frozenObjects = new ListQueue<GameObject>();
         player = GameObject.FindObjectOfType<PlayerMovement>();
         Physics.autoSyncTransforms = true;
@@ -78,40 +81,33 @@ public class ObjectManager : MonoBehaviour
         ConvertGameobjectList2Script();
 
         allAreVisible = true;
-        foreach(ObjectPlayerLine obj in objects){
+        foreach(GameObject obj in objectList){
             if(obj != null)
             {
-                if (!(obj.isTotallyVisible && !obj.isIntersected))
+                if (!(obj.GetComponent<ObjectPlayerLine>().isTotallyVisible && !obj.GetComponent<ObjectPlayerLine>().isIntersected))
                 {
                     allAreVisible = false;
                 }
-                obj.isIntersected = false;
+                obj.GetComponent<ObjectPlayerLine>().isIntersected = false;
             }
 
         }
 
         if (allAreVisible)
         {
-            //foreach(ObjectPlayerLine obj in objects)
-            //{
-            //    //obj.GetComponentInChildren<Light2D>().enabled = true;
-            //    obj.GetComponentInChildren<SpriteRenderer>().color = ColorWinning;
-            //    obj.GetComponent<ObjectBehaviour>().enabled = false;
-            //}
             winningCondition.Raise();
         }
 
-        foreach(ObjectPlayerLine obj in objects)
+        foreach (GameObject obj in objectList)
         {
+            
             if(obj != null)
             {
                 if (obj.GetComponent<ObjectPlayerLine>() != null)
                 {
-                    obj.CheckForVisibility();
+                    obj.GetComponent<ObjectPlayerLine>().CheckForVisibility();
                 }
             }
-
-          
         }
 
         FindHiddenObjects();
@@ -120,11 +116,11 @@ public class ObjectManager : MonoBehaviour
 
     public void UpdateObjects()
     {
-        objects = null;
-        objects = Object.FindObjectsOfType<ObjectPlayerLine>();
-
         objectList.Clear();
         objectList.AddRange(GameObject.FindGameObjectsWithTag("Object"));
+
+        wallList.Clear();
+        wallList.AddRange(GameObject.FindGameObjectsWithTag("Wall"));
     }
 
     void FindHiddenObjects()
@@ -132,8 +128,8 @@ public class ObjectManager : MonoBehaviour
         hiddenObjects = new List<ObjectPlayerLine>();
         foreach(ObjectPlayerLine obj in objects_scripts)
         {
-            if (obj.isTotallyHidden)
-                hiddenObjects.Add(obj);
+            if (obj.GetComponent<ObjectPlayerLine>().isTotallyHidden)
+                hiddenObjects.Add(obj.GetComponent<ObjectPlayerLine>());
         }
     }
 
@@ -243,27 +239,25 @@ public class ObjectManager : MonoBehaviour
     public void FreezeObject(GameObject obj)
     {
         ObjectFreezeBehaviour freeze = obj.GetComponent<ObjectFreezeBehaviour>();
-        if (obj.GetComponent<ObjectFreezeBehaviour>() != null)
+        if (freeze != null)
         {
-            if (obj.GetComponent<ObjectFreezeBehaviour>().isCoroutineRunning)
+            if (freeze.isCoroutineRunning)
             {
-                freeze.StopFreezeCoroutineRegular();
-                StopCoroutine(freeze.runningFreezeCoroutine);
+                Debug.Log("number 0: " + frozenObjects.Count);
+                freeze.StopFreezeCoroutine();
+                Debug.Log("number 1: " + frozenObjects.Count);
             }
 
-            if (ObjectManager.Instance.freezeCoroutines.Count >= ObjectManager.Instance.maxFreezeNumber)
+            if (frozenObjects.Count >= ObjectManager.Instance.maxFreezeNumber)
             {
-                StopCoroutine(ObjectManager.Instance.freezeCoroutines.Dequeue());
-                frozenObjects.Peek().GetComponent<ObjectBehaviour>().enabled = true;
-                frozenObjects.Peek().GetComponentInChildren<SpriteRenderer>().color = ObjectManager.Instance.ColorNormal;
-                //FindObjectOfType<PlayerFreezing>().RetrieveFreeze();
-                frozenObjects.Dequeue();
+                Debug.Log("HI: " + frozenObjects.Peek());
+                frozenObjects.Dequeue().GetComponent<ObjectFreezeBehaviour>().StopFreezeCoroutine();
             }
 
-            freeze.runningFreezeCoroutine = StartCoroutine(freeze.Freeze(obj));
-
-            ObjectManager.Instance.freezeCoroutines.Enqueue(freeze.runningFreezeCoroutine);
-            ObjectManager.Instance.frozenObjects.Enqueue(obj);
+            player.GetComponent<PlayerFreezing>().ExpendFreeze();
+            freeze.runningFreezeCoroutine = StartCoroutine(freeze.Freeze());
+            frozenObjects.Enqueue(obj);
+            Debug.Log("number 2: " + frozenObjects.Count);
         }
         
     }
