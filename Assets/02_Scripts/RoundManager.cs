@@ -13,12 +13,16 @@ namespace UnityEngine.Experimental.Rendering.Universal
         ObjectManager objectManager;
 
         [SerializeField] float lightOutTime;
+        [SerializeField] float orangeTime;
+        bool isOrange;
         bool isLightOut;
         float time;
 
         [SerializeField] GameObject[] prefabs;
         public Color wallColor;
 
+        float playerLightOuterRadius;
+        float playerSpeed;
 
         // Start is called before the first frame update
         void Start()
@@ -27,56 +31,91 @@ namespace UnityEngine.Experimental.Rendering.Universal
             objectManager = GameObject.FindGameObjectWithTag("ObjectManager").GetComponent<ObjectManager>();
             isLightOut = false;
             time = 0;
+
+            playerLightOuterRadius = player.GetComponent<Light2D>().pointLightOuterRadius;
+            playerSpeed = player.GetComponent<PlayerMovement>().speed;
         }
 
         // Update is called once per frame
         void Update()
         {
+            if(isOrange)
+            {
+                time += Time.deltaTime;
+                if (time > orangeTime)
+                {
+                    isOrange = false;
+                    isLightOut = true;
+
+                    foreach (GameObject gameObject in objectManager.objectList)
+                    {
+                        gameObject.GetComponentInChildren<SpriteRenderer>().color = objectManager.ColorNormal;
+                        gameObject.GetComponentInChildren<SpriteRenderer>().material = objectManager.lit;
+                    }
+
+                    player.GetComponent<PlayerMovement>().speed = 0;
+
+
+                    player.GetComponent<Light2D>().pointLightOuterRadius = 4;
+
+                    FindObjectOfType<PlayerFreezing>().ActivateNewFreezeShot();
+                    foreach (ObjectPlayerLine oPL in ObjectManager.Instance.objects)
+                    {
+                        if (oPL != null)
+                        {
+                            oPL.GetComponentInChildren<SpriteRenderer>().color = ObjectManager.Instance.ColorNormal;
+                            if (oPL.GetComponent<ObjectFreezeBehaviour>().isCoroutineRunning)
+                            {
+                                StopCoroutine(oPL.GetComponent<ObjectFreezeBehaviour>().runningFreezeCoroutine);
+                            }
+                        }
+                    }
+
+                    if (Random.value > 0.5)
+                    {
+                        MakeOneObjectToWall();
+                    }
+
+                    AddObject();
+                    ChangeObjectPlace();
+
+
+                    time = 0;
+                }
+            }
+
             if (isLightOut)
             {
                 time += Time.deltaTime;
                 if (time > lightOutTime)
                 {
                     isLightOut = false;
-                    player.GetComponent<Light2D>().enabled = true;
+                    //player.GetComponent<Light2D>().enabled = true;
+                    player.GetComponent<Light2D>().pointLightOuterRadius = playerLightOuterRadius;
+
+                    player.GetComponent<PlayerMovement>().speed = playerSpeed;
                 }
             }
         }
 
         public void AllSeen()
         {
-            roundCount++;
-            isLightOut = true;
-            player.GetComponent<Light2D>().enabled = false;
-            FindObjectOfType<PlayerFreezing>().ActivateNewFreezeShot();
-            foreach (GameObject obj in ObjectManager.Instance.objectList)
+            if(!isOrange) //only if not already orange
             {
-                ObjectPlayerLine oPL = obj.GetComponent<ObjectPlayerLine>();
-                oPL.GetComponentInChildren<SpriteRenderer>().color = ObjectManager.Instance.ColorNormal;
-                if (oPL.GetComponent<ObjectFreezeBehaviour>().isCoroutineRunning)
+                roundCount++;
+
+                foreach (GameObject gameObject in objectManager.objectList)
                 {
-                    StopCoroutine(oPL.GetComponent<ObjectFreezeBehaviour>().runningFreezeCoroutine);
-
+                    gameObject.GetComponentInChildren<SpriteRenderer>().color = objectManager.ColorWinning;
+                    gameObject.GetComponentInChildren<SpriteRenderer>().material = objectManager.unlit;
                 }
+
+
+                isOrange = true;
+                time = 0;
             }
-            time = 0;
-            MakeOneObjectToWall();
-            StartCoroutine(AddObject());
-            ChangeObjectPlace();
         }
 
-
-
-        IEnumerator AddObject()
-        {
-            yield return new WaitForEndOfFrame();
-            if(objectManager.objectList.Count < maxObjects)
-            { 
-                Vector3 position = new Vector3(Random.Range(-16, 16), Random.Range(-8, 8), -0.8f);
-                Instantiate(prefabs[Random.Range(0, prefabs.Length)], position, Quaternion.Euler(-90, 0, 0));
-            }
-            objectManager.UpdateObjects();
-        }
 
         void MakeOneObjectToWall()
         {
@@ -92,13 +131,37 @@ namespace UnityEngine.Experimental.Rendering.Universal
             objectManager.UpdateObjects();
         }
 
+        void AddObject()
+        {
+
+            if(objectManager.objectList.Count < maxObjects)
+            { 
+                Vector3 position = new Vector3(Random.Range(-16, 16), Random.Range(-8, 8), -0.8f);
+                GameObject newObject = Instantiate(prefabs[Random.Range(0, prefabs.Length)], position, Quaternion.Euler(-90, 0, 0));
+            }
+            objectManager.UpdateObjects();
+        }
+
         void ChangeObjectPlace()
         {
            foreach(GameObject gameObject in objectManager.objectList)
            {
-                Vector3 position = new Vector3(Random.Range(-16, 16), Random.Range(-8, 8), -0.8f);
-                gameObject.transform.position = position;
+                int count = 0;
+                int nbrOfColliders = int.MaxValue;
+
+                while(nbrOfColliders > 1 && count < 100) //max 100 tries
+                {
+                    Vector3 position = new Vector3(Random.Range(-16, 16), Random.Range(-8, 8), -0.8f);
+                    gameObject.transform.position = position;
+
+                    Collider[] colliders = Physics.OverlapBox(position, gameObject.GetComponent<Collider>().bounds.extents);
+                    nbrOfColliders = colliders.Length;
+
+                    count++;
+                }
+
             }
         }
+
     }
 }

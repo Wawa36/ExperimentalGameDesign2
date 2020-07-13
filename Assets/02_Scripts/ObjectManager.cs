@@ -34,14 +34,18 @@ public class ObjectManager : MonoBehaviour
 
     public float objectTeleportFrequence = 10f;
 
-    //public ObjectPlayerLine[] objects;
+    //[HideInInspector]
+    public ObjectPlayerLine[] objects;
+    //[HideInInspector]
     public List<GameObject> objectList = new List<GameObject>();
+    List<ObjectPlayerLine> objects_scripts;
+    //[HideInInspector]
     public List<ObjectPlayerLine> hiddenObjects;
     bool allAreVisible;
     PlayerMovement player;
 
     public GameEvent winningCondition;
-    float timer = 0;
+    public float timer = 0;
 
     public ListQueue<Coroutine> freezeCoroutines;
     // I need this because I am to lazy to find a better solution
@@ -54,6 +58,10 @@ public class ObjectManager : MonoBehaviour
     public Color ColorNormal;
     public Color ColorFrozen;
     public Color ColorWinning;
+
+    [Header("MATERIALS")]
+    public Material lit; //lol das ist Julians Spiel! 
+    public Material unlit; //und das ist das gegenteil von Julians Spiel!
 
     // Start is called before the first frame update
     void Start()
@@ -69,6 +77,8 @@ public class ObjectManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        ConvertGameobjectList2Script();
+
         allAreVisible = true;
         foreach(GameObject obj in objectList){
             if(obj != null)
@@ -118,7 +128,7 @@ public class ObjectManager : MonoBehaviour
     void FindHiddenObjects()
     {
         hiddenObjects = new List<ObjectPlayerLine>();
-        foreach(GameObject obj in objectList)
+        foreach(ObjectPlayerLine obj in objects_scripts)
         {
             if (obj.GetComponent<ObjectPlayerLine>().isTotallyHidden)
                 hiddenObjects.Add(obj.GetComponent<ObjectPlayerLine>());
@@ -154,8 +164,8 @@ public class ObjectManager : MonoBehaviour
                 Physics.Raycast(hiddenObj_originalPosition, player.transform.position - hiddenObj_originalPosition, out hitInfo);
                 ObjectPlayerLine currentlyHidingObj = hitInfo.collider.GetComponent<ObjectPlayerLine>();
 
-                // 2. Check for each object if the hiddenObject can hide behind one, until one is found
-                foreach (GameObject object2HideBehindGO in objectList)
+                // 2. Check for each other object if the hiddenObject can hide behind one, until one is found
+                foreach (ObjectPlayerLine object2HideBehind in objects_scripts)
                 {
                     ObjectPlayerLine object2HideBehind = object2HideBehindGO.GetComponent<ObjectPlayerLine>();
                     if (object2HideBehind == hiddenObject)
@@ -164,33 +174,26 @@ public class ObjectManager : MonoBehaviour
                     if (foundNewObjectToHide)
                         break;
 
-                    // TODO
-                    // if object2HideBehind == currentObjectThatIHideBehinde
-                    //  Break;
                     if (object2HideBehind == currentlyHidingObj)
                         continue;
 
+                    // (Check on 3 lines (behind objToHideBehind): player-to-objToHideBehind, downwards from that, upwards from that)
                     Vector3 mainLine = object2HideBehind.transform.position - player.transform.position;
                     //Vector3 downLine;
                     //Vector3 upLine;
                     int counter = 0;
-                    Vector3 position2Check;// = new Vector3();
+                    Vector3 position2Check;
 
                     do
                     {
-                        // (Check on 3 lines (behind objToHideBehind): player-to-objToHideBehind, downwards from that, upwards from that)
                         // Check in steps (radius of objToHide)
                         counter++;
                         position2Check = object2HideBehind.transform.position + mainLine.normalized * hiddenObj_radius * counter;
                         hiddenObj_rigid.position = position2Check; // TODO: check if position of the rigid and collider get updated instantly, for the following check
 
                         // (1) check if collision with other objects
-                        //hiddenObject.transform.
                         Collider[] colliders = Physics.OverlapBox(position2Check, hiddenObj_collider.bounds.extents);
-
-                        //print("in viewport? " + ObjectIsWithinGameView(position2Check, hiddenObj_radius));
-                        //print("counter: " + counter + ", Collision.count: " + colliders.Length);
-                        if (colliders.Length <= 1)
+                        if (colliders.Length <= 1) // 1, weil OverlapBox mit dem eigenen Collider kollidiert; zu faul layermask zu erstellen
                         {
                             // (2) Check if totally hidden
                             hiddenObject.CheckForVisibility(); // TODO: check if this works correct in this frame
@@ -199,17 +202,17 @@ public class ObjectManager : MonoBehaviour
                                 // (3) Check if is within game view
                                 if (ObjectIsWithinGameView(position2Check, hiddenObj_radius))
                                 {
-                                    print("TELEPORT");
-                                    foundNewObjectToHide = true;
-                                    timer = 0;
-                                    break;
+                                    // (4) Check if hiddenObject is not frozen
+                                    if (!hiddenObject.GetComponent<ObjectFreezeBehaviour>().isCoroutineRunning)
+                                    {
+                                        print("TELEPORT");
+                                        foundNewObjectToHide = true;
+                                        timer = 0;
+                                        break;
+                                    }
                                 }
                             }
                         }
-
-                        Debug.DrawLine(Vector3.zero, hiddenObj_originalPosition, Color.blue, 3f);
-                        Debug.DrawLine(object2HideBehind.transform.position, position2Check, Color.green, 3f);
-                        //Debug.DrawLine()
 
                         if (!foundNewObjectToHide)
                             hiddenObj_rigid.position = hiddenObj_originalPosition;
@@ -219,16 +222,12 @@ public class ObjectManager : MonoBehaviour
                     while (ObjectIsWithinGameView(position2Check, hiddenObj_radius)); // TODO: check if this really works
 
                 }
-                //ObjectPlayerLine newObjectToHide = 
-                // if geklappt, dann timer = 0;
             }
         }
     }
 
     bool ObjectIsWithinGameView(Vector3 position, float radius)
     {
-        //print("position.x (world): " + position.x + ", position.x (viewport): " + Camera.main.WorldToViewportPoint(position).x);
-        //print("position.y (world): " + position.y + ", position.y (viewport): " + Camera.main.WorldToViewportPoint(position).y);
         Vector3 xLeft = new Vector3(position.x - radius, position.y, position.z);
         Vector3 xRight = new Vector3(position.x + radius, position.y, position.z);
         Vector3 yUp = new Vector3(position.x, position.y - radius, position.z);
@@ -263,5 +262,12 @@ public class ObjectManager : MonoBehaviour
             ObjectManager.Instance.frozenObjects.Enqueue(obj);
         }
         
+    }
+
+    void ConvertGameobjectList2Script()
+    {
+        objects_scripts = new List<ObjectPlayerLine>();
+        foreach (GameObject obj in objectList)
+            objects_scripts.Add(obj.GetComponent<ObjectPlayerLine>());
     }
 }
