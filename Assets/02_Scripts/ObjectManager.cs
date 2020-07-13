@@ -38,6 +38,7 @@ public class ObjectManager : MonoBehaviour
     public ObjectPlayerLine[] objects;
     //[HideInInspector]
     public List<GameObject> objectList = new List<GameObject>();
+    List<ObjectPlayerLine> objects_scripts;
     //[HideInInspector]
     public List<ObjectPlayerLine> hiddenObjects;
     bool allAreVisible;
@@ -74,6 +75,8 @@ public class ObjectManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        ConvertGameobjectList2Script();
+
         allAreVisible = true;
         foreach(ObjectPlayerLine obj in objects){
             if(obj != null)
@@ -127,7 +130,7 @@ public class ObjectManager : MonoBehaviour
     void FindHiddenObjects()
     {
         hiddenObjects = new List<ObjectPlayerLine>();
-        foreach(ObjectPlayerLine obj in objects)
+        foreach(ObjectPlayerLine obj in objects_scripts)
         {
             if (obj.isTotallyHidden)
                 hiddenObjects.Add(obj);
@@ -164,7 +167,7 @@ public class ObjectManager : MonoBehaviour
                 ObjectPlayerLine currentlyHidingObj = hitInfo.collider.GetComponent<ObjectPlayerLine>();
 
                 // 2. Check for each other object if the hiddenObject can hide behind one, until one is found
-                foreach (ObjectPlayerLine object2HideBehind in objects)
+                foreach (ObjectPlayerLine object2HideBehind in objects_scripts)
                 {
                     if (object2HideBehind == hiddenObject)
                         continue;
@@ -263,5 +266,12 @@ public class ObjectManager : MonoBehaviour
             ObjectManager.Instance.frozenObjects.Enqueue(obj);
         }
         
+    }
+
+    void ConvertGameobjectList2Script()
+    {
+        objects_scripts = new List<ObjectPlayerLine>();
+        foreach (GameObject obj in objectList)
+            objects_scripts.Add(obj.GetComponent<ObjectPlayerLine>());
     }
 }
