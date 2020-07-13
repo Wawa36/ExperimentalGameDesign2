@@ -12,6 +12,10 @@ public class Sound
     [Range(0.1f, 3f)]
     public float pitch = 1f;
     public bool loop = false;
+    //[Range(0,1f)]
+    //public float spatialBlend = 1f;
+    //public float maxDistance = 10f;
+    //public AudioRolloffMode rolloffMode = AudioRolloffMode.Custom;
 
     [HideInInspector]
     public AudioSource source;

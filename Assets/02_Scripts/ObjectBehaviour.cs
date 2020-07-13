@@ -15,6 +15,12 @@ public class ObjectBehaviour : MonoBehaviour
     [SerializeField] private float playerSpeedMultiplier;
     private PlayerMovement player;
 
+    AudioManager audioManager;
+
+    void Awake()
+    {
+        audioManager = this.GetComponent<AudioManager>();
+    }
   
     void Start()
     {
@@ -31,6 +37,8 @@ public class ObjectBehaviour : MonoBehaviour
         SetMovement();
 
         SetVisibility();
+
+        ManageSound();
     }
 
     void FixedUpdate()
@@ -53,9 +61,25 @@ public class ObjectBehaviour : MonoBehaviour
             rigidbody.mass = 1000000;
             rigidbody.drag = 1000000;
             rigidbody.angularDrag = 1000000;
-            //rigidbody.constraints = RigidbodyConstraints.FreezeAll;
         }
 
+    }
+
+    void ManageSound()
+    {
+        // Movement
+        if (this.gameObject.name == "2D Rectangle")
+            {
+            if (isTotallyHidden && player.PlayerDirection.magnitude >= 0.01)
+            {
+                audioManager.Play("Move");
+                print("move");
+            }
+            else
+            {
+                audioManager.Stop("Move");
+            }
+        }
     }
 
     void SetMovement()
