@@ -53,11 +53,6 @@ namespace UnityEngine.Experimental.Rendering.Universal
                         gameObject.GetComponentInChildren<SpriteRenderer>().material = objectManager.lit;
                     }
 
-                    foreach (GameObject gameObject in objectManager.wallList)
-                    {
-                        gameObject.GetComponentInChildren<SpriteRenderer>().material = objectManager.unlit;
-                    }
-
                     player.GetComponent<PlayerMovement>().speed = 0;
 
 
@@ -76,7 +71,7 @@ namespace UnityEngine.Experimental.Rendering.Universal
                     //    }
                     //}
 
-                    if (Random.value > 0.5)
+                    if (Random.value > 0)
                     {
                         MakeOneObjectToWall();
                     }
@@ -84,6 +79,10 @@ namespace UnityEngine.Experimental.Rendering.Universal
                     AddObject();
                     ChangeObjectPlace();
 
+                    foreach (GameObject gameObject in objectManager.wallList)
+                    {
+                        gameObject.GetComponentInChildren<SpriteRenderer>().material = objectManager.unlit;
+                    }
 
                     time = 0;
                 }
