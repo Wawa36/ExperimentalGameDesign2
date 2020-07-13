@@ -55,6 +55,10 @@ public class ObjectManager : MonoBehaviour
     public Color ColorFrozen;
     public Color ColorWinning;
 
+    [Header("MATERIALS")]
+    public Material lit; //lol das ist Julians Spiel! 
+    public Material unlit; //und das ist das gegenteil von Julians Spiel!
+
     // Start is called before the first frame update
     void Start()
     {
@@ -86,12 +90,6 @@ public class ObjectManager : MonoBehaviour
 
         if (allAreVisible)
         {
-            //foreach(ObjectPlayerLine obj in objects)
-            //{
-            //    //obj.GetComponentInChildren<Light2D>().enabled = true;
-            //    obj.GetComponentInChildren<SpriteRenderer>().color = ColorWinning;
-            //    obj.GetComponent<ObjectBehaviour>().enabled = false;
-            //}
             winningCondition.Raise();
         }
 
