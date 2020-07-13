@@ -38,6 +38,7 @@ public class ObjectManager : MonoBehaviour
     public ObjectPlayerLine[] objects;
     //[HideInInspector]
     public List<GameObject> objectList = new List<GameObject>();
+    public List<GameObject> wallList = new List<GameObject>();
     List<ObjectPlayerLine> objects_scripts;
     //[HideInInspector]
     public List<ObjectPlayerLine> hiddenObjects;
@@ -123,6 +124,9 @@ public class ObjectManager : MonoBehaviour
     {
         objectList.Clear();
         objectList.AddRange(GameObject.FindGameObjectsWithTag("Object"));
+
+        wallList.Clear();
+        wallList.AddRange(GameObject.FindGameObjectsWithTag("Wall"));
     }
 
     void FindHiddenObjects()

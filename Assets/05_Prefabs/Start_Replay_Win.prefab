@@ -730,7 +730,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   roundCount: 0
   maxObjects: 8
-  lightOutTime: 0
+  lightOutTime: 0.5
+  orangeTime: 2
   prefabs:
   - {fileID: 8091960089062838979, guid: 26546c9ad7b7b694daafab9d1cde0b2e, type: 3}
   - {fileID: 4689105388705477857, guid: 791a157d9d22677468632ccedff4ac3d, type: 3}
