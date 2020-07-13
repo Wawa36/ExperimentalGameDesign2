@@ -167,7 +167,6 @@ public class ObjectManager : MonoBehaviour
                 // 2. Check for each other object if the hiddenObject can hide behind one, until one is found
                 foreach (ObjectPlayerLine object2HideBehind in objects_scripts)
                 {
-                    ObjectPlayerLine object2HideBehind = object2HideBehindGO.GetComponent<ObjectPlayerLine>();
                     if (object2HideBehind == hiddenObject)
                         continue;
 

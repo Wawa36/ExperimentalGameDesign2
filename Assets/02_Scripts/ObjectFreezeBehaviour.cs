@@ -14,6 +14,7 @@ public class ObjectFreezeBehaviour : MonoBehaviour
         isCoroutineRunning = true;
         obj.GetComponentInChildren<SpriteRenderer>().color = ObjectManager.Instance.ColorFrozen;
         obj.GetComponent<ObjectBehaviour>().enabled = false;
+        obj.GetComponentInChildren<SpriteRenderer>().sortingLayerName = "IsTotallyVisible";
         var time = 0f;
         while (time < ObjectManager.Instance.freezeCountdown)
         {
