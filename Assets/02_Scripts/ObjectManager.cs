@@ -95,12 +95,7 @@ public class ObjectManager : MonoBehaviour
 
         if (allAreVisible)
         {
-            foreach (GameObject obj in objectList)
-            {
-                obj.GetComponentInChildren<Light2D>().enabled = true;
-                obj.GetComponentInChildren<SpriteRenderer>().color = ColorWinning;
-                obj.GetComponent<ObjectBehaviour>().enabled = false;
-            }
+            
             winningCondition.Raise();
         }
 

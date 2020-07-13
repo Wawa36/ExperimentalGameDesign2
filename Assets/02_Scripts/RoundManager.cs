@@ -53,6 +53,11 @@ namespace UnityEngine.Experimental.Rendering.Universal
                         gameObject.GetComponentInChildren<SpriteRenderer>().material = objectManager.lit;
                     }
 
+                    foreach (GameObject gameObject in objectManager.wallList)
+                    {
+                        gameObject.GetComponentInChildren<SpriteRenderer>().material = objectManager.unlit;
+                    }
+
                     player.GetComponent<PlayerMovement>().speed = 0;
 
 
@@ -94,6 +99,11 @@ namespace UnityEngine.Experimental.Rendering.Universal
                     player.GetComponent<Light2D>().pointLightOuterRadius = playerLightOuterRadius;
 
                     player.GetComponent<PlayerMovement>().speed = playerSpeed;
+
+                    foreach (GameObject gameObject in objectManager.wallList)
+                    {
+                        gameObject.GetComponentInChildren<SpriteRenderer>().material = objectManager.lit;
+                    }
                 }
             }
         }
