@@ -15,7 +15,6 @@ public class ObjectBehaviour : MonoBehaviour
     [SerializeField] private float playerSpeedMultiplier;
     private PlayerMovement player;
 
-    [HideInInspector]
     public bool isFrozen;
   
     void Start()
