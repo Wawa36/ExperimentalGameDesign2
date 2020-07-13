@@ -58,7 +58,7 @@ namespace UnityEngine.Experimental.Rendering.Universal
 
                     player.GetComponent<Light2D>().pointLightOuterRadius = 4;
 
-                    FindObjectOfType<PlayerFreezing>().ActivateNewFreezeShot();
+                    //FindObjectOfType<PlayerFreezing>().ActivateNewFreezeShot();
                     foreach (ObjectPlayerLine oPL in ObjectManager.Instance.objects)
                     {
                         if (oPL != null)
@@ -125,7 +125,6 @@ namespace UnityEngine.Experimental.Rendering.Universal
             Destroy(newWall.GetComponent<ObjectPlayerLine>());
             Destroy(newWall.GetComponent<ObjectBehaviour>());
             Destroy(newWall.GetComponent<Rigidbody>());
-            ObjectManager.Instance.objects = FindObjectsOfType<ObjectPlayerLine>();
 
             newWall.tag = "Wall";
 

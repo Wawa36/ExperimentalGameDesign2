@@ -10,9 +10,11 @@ public class ObjectFreezeBehaviour : MonoBehaviour
 
     public IEnumerator Freeze(GameObject obj)
     {
+        obj.GetComponentInChildren<SpriteRenderer>().color = ObjectManager.Instance.ColorNormal;
         isCoroutineRunning = true;
         obj.GetComponentInChildren<SpriteRenderer>().color = ObjectManager.Instance.ColorFrozen;
         obj.GetComponent<ObjectBehaviour>().enabled = false;
+        obj.GetComponentInChildren<SpriteRenderer>().sortingLayerName = "IsTotallyVisible";
         var time = 0f;
         while (time < ObjectManager.Instance.freezeCountdown)
         {
@@ -21,34 +23,33 @@ public class ObjectFreezeBehaviour : MonoBehaviour
                 = Color.Lerp(ObjectManager.Instance.ColorFrozen, ObjectManager.Instance.ColorNormal, time / ObjectManager.Instance.freezeCountdown);
             yield return null;
         }
-        FindObjectOfType<PlayerFreezing>().RetrieveFreeze();
-        StopFreezeCoroutineRegular();
+        StopFreezeCoroutine();
         isCoroutineRunning = false;
     }
 
-   public void StopFreezeCoroutineRegular()
+   public void StopFreezeCoroutine()
     {
-        if (ObjectManager.Instance.freezeCoroutines.Contains(runningFreezeCoroutine))
+        if (isCoroutineRunning)
         {
-            ObjectManager.Instance.freezeCoroutines.Remove(runningFreezeCoroutine);
+            StopCoroutine(runningFreezeCoroutine);
+
         }
-        if(ObjectManager.Instance.frozenObjects.Count > 0)
+        if (ObjectManager.Instance.frozenObjects.Contains(this.gameObject))
         {
-            ObjectManager.Instance.frozenObjects.Peek().GetComponent<ObjectBehaviour>().enabled = true;
+            this.gameObject.GetComponent<ObjectBehaviour>().enabled = true;
             ObjectManager.Instance.frozenObjects.Remove(this.gameObject);
         }
+
         GetComponentInChildren<SpriteRenderer>().color = ObjectManager.Instance.ColorNormal;
+        FindObjectOfType<PlayerFreezing>().RetrieveFreeze();
     }
 
     void OnDestroy()
     {
         if (isCoroutineRunning)
         {
-            StopCoroutine(runningFreezeCoroutine);
-            ObjectManager.Instance.freezeCoroutines.Remove(runningFreezeCoroutine);
+            StopFreezeCoroutine();
             ObjectManager.Instance.frozenObjects.Remove(this.gameObject);
-            
-
         }
         //StopFreezeCoroutineRegular();
     }

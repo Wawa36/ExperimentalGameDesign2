@@ -67,8 +67,6 @@ public class ObjectManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        objects = Object.FindObjectsOfType<ObjectPlayerLine>();
-        freezeCoroutines = new ListQueue<Coroutine>();
         frozenObjects = new ListQueue<GameObject>();
         player = GameObject.FindObjectOfType<PlayerMovement>();
         Physics.autoSyncTransforms = true;
@@ -83,34 +81,39 @@ public class ObjectManager : MonoBehaviour
         ConvertGameobjectList2Script();
 
         allAreVisible = true;
-        foreach(ObjectPlayerLine obj in objects){
+        foreach(GameObject obj in objectList){
             if(obj != null)
             {
-                if (!(obj.isTotallyVisible && !obj.isIntersected))
+                if (!(obj.GetComponent<ObjectPlayerLine>().isTotallyVisible && !obj.GetComponent<ObjectPlayerLine>().isIntersected))
                 {
                     allAreVisible = false;
                 }
-                obj.isIntersected = false;
+                obj.GetComponent<ObjectPlayerLine>().isIntersected = false;
             }
 
         }
 
         if (allAreVisible)
         {
+            foreach (GameObject obj in objectList)
+            {
+                obj.GetComponentInChildren<Light2D>().enabled = true;
+                obj.GetComponentInChildren<SpriteRenderer>().color = ColorWinning;
+                obj.GetComponent<ObjectBehaviour>().enabled = false;
+            }
             winningCondition.Raise();
         }
 
-        foreach(ObjectPlayerLine obj in objects)
+        foreach (GameObject obj in objectList)
         {
+            
             if(obj != null)
             {
                 if (obj.GetComponent<ObjectPlayerLine>() != null)
                 {
-                    obj.CheckForVisibility();
+                    obj.GetComponent<ObjectPlayerLine>().CheckForVisibility();
                 }
             }
-
-          
         }
 
         FindHiddenObjects();
@@ -119,9 +122,6 @@ public class ObjectManager : MonoBehaviour
 
     public void UpdateObjects()
     {
-        objects = null;
-        objects = Object.FindObjectsOfType<ObjectPlayerLine>();
-
         objectList.Clear();
         objectList.AddRange(GameObject.FindGameObjectsWithTag("Object"));
 
@@ -134,8 +134,8 @@ public class ObjectManager : MonoBehaviour
         hiddenObjects = new List<ObjectPlayerLine>();
         foreach(ObjectPlayerLine obj in objects_scripts)
         {
-            if (obj.isTotallyHidden)
-                hiddenObjects.Add(obj);
+            if (obj.GetComponent<ObjectPlayerLine>().isTotallyHidden)
+                hiddenObjects.Add(obj.GetComponent<ObjectPlayerLine>());
         }
     }
 
@@ -245,26 +245,23 @@ public class ObjectManager : MonoBehaviour
     public void FreezeObject(GameObject obj)
     {
         ObjectFreezeBehaviour freeze = obj.GetComponent<ObjectFreezeBehaviour>();
-        if (obj.GetComponent<ObjectFreezeBehaviour>() != null)
+        if (freeze != null)
         {
-            if (obj.GetComponent<ObjectFreezeBehaviour>().isCoroutineRunning)
+            if (freeze.isCoroutineRunning)
             {
-                freeze.StopFreezeCoroutineRegular();
-                StopCoroutine(freeze.runningFreezeCoroutine);
+                freeze.StopFreezeCoroutine();
             }
 
-            if (ObjectManager.Instance.freezeCoroutines.Count >= ObjectManager.Instance.maxFreezeNumber)
+            if (frozenObjects.Count >= ObjectManager.Instance.maxFreezeNumber)
             {
-                StopCoroutine(ObjectManager.Instance.freezeCoroutines.Dequeue());
+                StopCoroutine(frozenObjects.Peek().GetComponent<ObjectFreezeBehaviour>().runningFreezeCoroutine);
                 frozenObjects.Peek().GetComponent<ObjectBehaviour>().enabled = true;
                 frozenObjects.Peek().GetComponentInChildren<SpriteRenderer>().color = ObjectManager.Instance.ColorNormal;
-                //FindObjectOfType<PlayerFreezing>().RetrieveFreeze();
                 frozenObjects.Dequeue();
             }
 
+            player.GetComponent<PlayerFreezing>().ExpendFreeze();
             freeze.runningFreezeCoroutine = StartCoroutine(freeze.Freeze(obj));
-
-            ObjectManager.Instance.freezeCoroutines.Enqueue(freeze.runningFreezeCoroutine);
             ObjectManager.Instance.frozenObjects.Enqueue(obj);
         }
         
