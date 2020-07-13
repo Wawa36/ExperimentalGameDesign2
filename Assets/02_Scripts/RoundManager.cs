@@ -71,8 +71,26 @@ namespace UnityEngine.Experimental.Rendering.Universal
             yield return new WaitForEndOfFrame();
             if(objectManager.objectList.Count < maxObjects)
             { 
+                
+              /*  int count = 0;
+                int nbrOfColliders = int.MaxValue;
+                GameObject newObject = null;
+
+                while (nbrOfColliders > 0 && count < 100) //max 100 tries
+                {
+                    Destroy(newObject);
+
+                    Vector3 position = new Vector3(Random.Range(-16, 16), Random.Range(-8, 8), -0.8f);
+                    newObject = Instantiate(prefabs[Random.Range(0, prefabs.Length)], position, Quaternion.Euler(-90, 0, 0));
+
+                    Collider[] colliders = Physics.OverlapBox(position, newObject.GetComponent<Collider>().bounds.extents);
+                    nbrOfColliders = colliders.Length;
+
+                    count++;
+                }*/
+
                 Vector3 position = new Vector3(Random.Range(-16, 16), Random.Range(-8, 8), -0.8f);
-                Instantiate(prefabs[Random.Range(0, prefabs.Length)], position, Quaternion.Euler(-90, 0, 0));
+                GameObject newObject = Instantiate(prefabs[Random.Range(0, prefabs.Length)], position, Quaternion.Euler(-90, 0, 0));
             }
             objectManager.UpdateObjects();
         }
@@ -96,8 +114,19 @@ namespace UnityEngine.Experimental.Rendering.Universal
         {
            foreach(GameObject gameObject in objectManager.objectList)
            {
-                Vector3 position = new Vector3(Random.Range(-16, 16), Random.Range(-8, 8), -0.8f);
-                gameObject.transform.position = position;
+                int count = 0;
+                int nbrOfColliders = int.MaxValue;
+
+                while(nbrOfColliders > 0 && count < 100) //max 100 tries
+                {
+                    Vector3 position = new Vector3(Random.Range(-16, 16), Random.Range(-8, 8), -0.8f);
+                    gameObject.transform.position = position;
+
+                    Collider[] colliders = Physics.OverlapBox(position, gameObject.GetComponent<Collider>().bounds.extents);
+                    nbrOfColliders = colliders.Length;
+
+                    count++;
+                }
             }
         }
     }
