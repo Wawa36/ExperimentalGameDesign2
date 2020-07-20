@@ -184,6 +184,7 @@ public class ObjectManager : MonoBehaviour
                     do
                     {
                         // Check in steps (radius of objToHide)
+                        // position gets set every frame and gets reversed, if one of the teleport-checks is false
                         counter++;
                         position2Check = object2HideBehind.transform.position + mainLine.normalized * hiddenObj_radius * counter;
                         hiddenObj_rigid.position = position2Check; // TODO: check if position of the rigid and collider get updated instantly, for the following check
@@ -205,18 +206,31 @@ public class ObjectManager : MonoBehaviour
                                         print("TELEPORT");
                                         foundNewObjectToHide = true;
                                         timer = 0;
+
+                                        // Play Sound: lerp from old to new position
+                                        AudioManager audioManager = hiddenObject.GetComponent<AudioManager>();
+                                        if (audioManager != null)
+                                        {
+                                            GameObject teleportSoundObj = hiddenObject.transform.Find("TeleportSound").gameObject;
+                                            audioManager.StopAllCoroutines();
+                                            StartCoroutine(audioManager.PlayFromAToB("Teleport", 0.2f, teleportSoundObj, hiddenObj_originalPosition, position2Check));
+                                        }
+                                        else
+                                            Debug.LogError("AudioManager on Obj (" + hiddenObject.name + ") == null");
+
                                         break;
                                     }
                                 }
                             }
                         }
 
+                        // reverse checked position
                         if (!foundNewObjectToHide)
                             hiddenObj_rigid.position = hiddenObj_originalPosition;
 
                     }
                     // check if within game view
-                    while (ObjectIsWithinGameView(position2Check, hiddenObj_radius)); // TODO: check if this really works
+                    while (ObjectIsWithinGameView(position2Check, hiddenObj_radius));
 
                 }
             }
@@ -254,9 +268,22 @@ public class ObjectManager : MonoBehaviour
             player.GetComponent<PlayerFreezing>().ExpendFreeze();
             freeze.StartFreezeCoroutine();
             frozenObjects.Enqueue(obj);
+
+            // Sound
+            PlaySound(obj, "Freeze");
         }
         
     }
+
+    void PlaySound(GameObject obj, string sound)
+    {
+        AudioManager audioManager = obj.GetComponent<AudioManager>();
+        if (audioManager != null)
+            audioManager.Play(sound);
+        else
+            Debug.LogError("AudioManager on Obj (" + obj.name + ") == null");
+    }
+
 
     void ConvertGameobjectList2Script()
     {

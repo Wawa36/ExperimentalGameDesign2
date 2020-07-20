@@ -139,7 +139,7 @@ MonoBehaviour:
   - {x: -0.5, y: 0.5, z: 0}
   m_ShapePathHash: 0
   m_Mesh: {fileID: 0}
-  m_InstanceId: 66220
+  m_InstanceId: 28900
 --- !u!1 &3871088844294317918
 GameObject:
   m_ObjectHideFlags: 0
@@ -196,7 +196,7 @@ MonoBehaviour:
   - {x: -0.46975842, y: 0.44545898, z: 0}
   m_ShapePathHash: 588894001
   m_Mesh: {fileID: 0}
-  m_InstanceId: 66226
+  m_InstanceId: 28906
 --- !u!1 &6613670661050688694
 GameObject:
   m_ObjectHideFlags: 0
@@ -266,6 +266,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   objectPlayerLine: {fileID: 0}
   playerSpeedMultiplier: 0.5
+  isFrozen: 0
 --- !u!54 &9129153646918653007
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -370,18 +371,18 @@ MonoBehaviour:
   sounds:
   - name: Move
     clip: {fileID: 8300000, guid: 9353dffcf71d8164fa5d1cf937e8c152, type: 3}
-    volume: 1
+    volume: 0.1
     pitch: 1
     loop: 1
     source: {fileID: 0}
-  - name: 
-    clip: {fileID: 0}
+  - name: Teleport
+    clip: {fileID: 8300000, guid: e8ecc2e887ac2ea4bbf0ffcd8c5a6395, type: 3}
     volume: 1
     pitch: 1
     loop: 0
     source: {fileID: 0}
-  - name: 
-    clip: {fileID: 0}
+  - name: Freeze
+    clip: {fileID: 8300000, guid: bcddb6fe30bb3ff46a8237867c6ad984, type: 3}
     volume: 1
     pitch: 1
     loop: 0

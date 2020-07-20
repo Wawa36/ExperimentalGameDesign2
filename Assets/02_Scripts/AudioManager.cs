@@ -1,5 +1,7 @@
 ﻿using UnityEngine.Audio;
 using UnityEngine;
+using System.Collections;
+using System.Collections.Generic;
 using System;
 
 public class AudioManager : MonoBehaviour
@@ -20,7 +22,17 @@ public class AudioManager : MonoBehaviour
 
         foreach (Sound s in sounds)
         {
-            s.source = this.gameObject.AddComponent<AudioSource>();
+            if (s.name != "Teleport")
+                s.source = this.gameObject.AddComponent<AudioSource>();
+            else
+            {
+                GameObject soundObj = new GameObject();
+                soundObj.transform.parent = this.transform;
+                soundObj.name = "TeleportSound";
+                soundObj.transform.position = this.transform.position;
+                s.source = soundObj.AddComponent<AudioSource>();
+            }
+                
             s.source.clip = s.clip;
             s.source.volume = s.volume;
             s.source.pitch = s.pitch;
@@ -55,7 +67,31 @@ public class AudioManager : MonoBehaviour
         }
         else
             Debug.LogError("Sound not found");
-            
+    }
+    
+    public IEnumerator PlayFromAToB(string name, float maxTime, GameObject obj, Vector3 startPos, Vector3 goalPos)
+    {
+        Sound s = Array.Find(sounds, sound => sound.name == name);
+        float timer = 0;
+        if (s != null)
+        {
+            // start playing
+            //if (!s.source.isPlaying)
+                s.source.Play();
+
+            // lerp position
+            while (timer < maxTime)
+            {
+                timer += Time.deltaTime;
+                obj.transform.position = Vector3.Lerp(startPos, goalPos, timer / maxTime);
+                print("sound coroutine");
+                Debug.DrawLine(startPos, goalPos, Color.magenta);
+                yield return null;
+            }
+            print("ende coroutine");
+        }
+        else
+            Debug.LogError("Sound not found");
     }
 
     public void Stop(string name)

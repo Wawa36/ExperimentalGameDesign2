@@ -57,7 +57,7 @@ MonoBehaviour:
   - {x: -4.794507, y: 1.1935834, z: -0.0000004646255}
   m_ShapePathHash: -1050979342
   m_Mesh: {fileID: 0}
-  m_InstanceId: 69350
+  m_InstanceId: 23582
 --- !u!1 &469151227
 GameObject:
   m_ObjectHideFlags: 0
@@ -293,7 +293,7 @@ MonoBehaviour:
   - {x: -4.231346, y: 0.90130436, z: -0.0000006978105}
   m_ShapePathHash: -707284031
   m_Mesh: {fileID: 0}
-  m_InstanceId: 69360
+  m_InstanceId: 23592
 --- !u!1 &4689105388705477857
 GameObject:
   m_ObjectHideFlags: 0
@@ -310,6 +310,7 @@ GameObject:
   - component: {fileID: 671063291132225924}
   - component: {fileID: 6175829548102532910}
   - component: {fileID: 5169592611104857192}
+  - component: {fileID: 6615336976172104207}
   m_Layer: 0
   m_Name: 2D Pentagon (1)
   m_TagString: Object
@@ -453,3 +454,40 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isCoroutineRunning: 0
+--- !u!114 &6615336976172104207
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4689105388705477857}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5dddfa3f6c7dbb4f828f68fe546fdaa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sounds:
+  - name: Move
+    clip: {fileID: 8300000, guid: 9353dffcf71d8164fa5d1cf937e8c152, type: 3}
+    volume: 0.1
+    pitch: 1.2
+    loop: 1
+    source: {fileID: 0}
+  - name: Teleport
+    clip: {fileID: 8300000, guid: e8ecc2e887ac2ea4bbf0ffcd8c5a6395, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: Freeze
+    clip: {fileID: 8300000, guid: bcddb6fe30bb3ff46a8237867c6ad984, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: 
+    clip: {fileID: 0}
+    volume: 1
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}

@@ -71,19 +71,19 @@ public class ObjectBehaviour : MonoBehaviour
 
     void ManageSound()
     {
-        // Movement
-        if (this.gameObject.name == "2D Rectangle")
-            {
+        if (audioManager != null)
+        {
             if (isTotallyHidden && player.PlayerDirection.magnitude >= 0.01)
             {
                 audioManager.Play("Move");
-                //print("move");
             }
             else
             {
                 audioManager.Stop("Move");
             }
         }
+        else
+            Debug.LogError("AudioManager on Obj (" + this.gameObject.name + ") == null");
     }
 
     void SetMovement()
