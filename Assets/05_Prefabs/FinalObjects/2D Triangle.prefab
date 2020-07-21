@@ -16,7 +16,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &2524124083673853929
 Transform:
   m_ObjectHideFlags: 0
@@ -56,7 +56,7 @@ MonoBehaviour:
   - {x: 0.014453217, y: 0.38059655, z: 6.297714e-10}
   m_ShapePathHash: 2055883494
   m_Mesh: {fileID: 0}
-  m_InstanceId: 23844
+  m_InstanceId: 29752
 --- !u!1 &3020310670579796948
 GameObject:
   m_ObjectHideFlags: 0
@@ -113,7 +113,7 @@ MonoBehaviour:
   - {x: -0.011237156, y: 0.4568391, z: -0.000000038682252}
   m_ShapePathHash: -1400155562
   m_Mesh: {fileID: 0}
-  m_InstanceId: 23816
+  m_InstanceId: 29724
 --- !u!1 &3544164132795441885
 GameObject:
   m_ObjectHideFlags: 0
@@ -458,7 +458,7 @@ MonoBehaviour:
     loop: 1
     source: {fileID: 0}
   - name: Teleport
-    clip: {fileID: 8300000, guid: e8ecc2e887ac2ea4bbf0ffcd8c5a6395, type: 3}
+    clip: {fileID: 8300000, guid: 5f70a2783b91430419e8d0372eb172c2, type: 3}
     volume: 1
     pitch: 1
     loop: 0
@@ -469,8 +469,14 @@ MonoBehaviour:
     pitch: 1
     loop: 0
     source: {fileID: 0}
-  - name: 
-    clip: {fileID: 0}
+  - name: GetsTotallyVisible
+    clip: {fileID: 8300000, guid: e8ecc2e887ac2ea4bbf0ffcd8c5a6395, type: 3}
+    volume: 0.187
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: GetsTotallyHidden
+    clip: {fileID: 8300000, guid: 5f70a2783b91430419e8d0372eb172c2, type: 3}
     volume: 1
     pitch: 1
     loop: 0

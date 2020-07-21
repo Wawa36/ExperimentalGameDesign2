@@ -22,11 +22,12 @@ public class AudioManager : MonoBehaviour
 
         foreach (Sound s in sounds)
         {
+            // Add AudioSource
             if (s.name != "Teleport")
                 s.source = this.gameObject.AddComponent<AudioSource>();
             else
             {
-                // add new GameObj for teleport spatial animation sound
+                // exeption: teleport sound
                 GameObject soundObj = new GameObject();
                 soundObj.transform.parent = this.transform;
                 soundObj.name = "TeleportSound";
@@ -60,13 +61,17 @@ public class AudioManager : MonoBehaviour
         //    Stop("Stone");
     }
 
-    public void Play(string name)
+    public void Play(string name, bool checkForPlaying = false)
     {
         Sound s = Array.Find(sounds, sound => sound.name == name);
         if (s != null)
         {
-            //print("is playing? " + s.source.isPlaying);
-            if (!s.source.isPlaying)
+            if (checkForPlaying)
+            {
+                if (!s.source.isPlaying)
+                    s.source.Play();
+            }
+            else
                 s.source.Play();
         }
         else

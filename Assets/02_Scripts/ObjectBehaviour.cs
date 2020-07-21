@@ -10,11 +10,15 @@ public class ObjectBehaviour : MonoBehaviour
     bool isMoving;
     bool isTotallyVisible { get { return objectPlayerLine.isTotallyVisible; } set {; } }
     bool isTotallyHidden { get { return objectPlayerLine.isTotallyHidden; } set {; } }
+    bool isIntersected { get { return objectPlayerLine.isIntersected; } set {; } }
     SpriteRenderer spriteRenderer;
 
     [SerializeField] private float playerSpeedMultiplier;
     private PlayerMovement player;
     AudioManager audioManager;
+    bool wasTotallyVisible = false;
+    bool wasTotallyHidden = false;
+    bool wasIntersected = false;
 
     public bool isFrozen;
     void Awake()
@@ -73,13 +77,37 @@ public class ObjectBehaviour : MonoBehaviour
     {
         if (audioManager != null)
         {
+            // (1) Move-sound
             if (isTotallyHidden && player.PlayerDirection.magnitude >= 0.01)
             {
-                audioManager.Play("Move");
+                audioManager.Play("Move", true);
             }
             else
-            {
                 audioManager.Stop("Move");
+
+            // (2) Visibility-sound
+            if (isTotallyVisible && !wasTotallyVisible)
+            {
+                audioManager.Play("GetsTotallyVisible");
+                wasTotallyVisible = true;
+                wasIntersected = false;
+                wasTotallyHidden = false;
+            }
+            //else if (isIntersected && !wasIntersected)
+            //{
+            //    //audioManager.Play("GetsIntersected");
+            //    wasIntersected = true;
+            //    wasTotallyVisible = false;
+            //    wasTotallyHidden = false;
+            //    print("intersected");
+            //}
+            else if (isTotallyHidden && !wasTotallyHidden)
+            {
+                audioManager.Play("GetsTotallyHidden");
+                wasTotallyHidden = true;
+                wasIntersected = false;
+                wasTotallyVisible = false;
+                print("gets totally Hidden");
             }
         }
         else

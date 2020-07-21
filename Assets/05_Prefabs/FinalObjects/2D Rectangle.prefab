@@ -139,7 +139,7 @@ MonoBehaviour:
   - {x: -0.5, y: 0.5, z: 0}
   m_ShapePathHash: 0
   m_Mesh: {fileID: 0}
-  m_InstanceId: 16422
+  m_InstanceId: 29642
 --- !u!1 &3871088844294317918
 GameObject:
   m_ObjectHideFlags: 0
@@ -156,7 +156,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1168199336168336961
 Transform:
   m_ObjectHideFlags: 0
@@ -196,7 +196,7 @@ MonoBehaviour:
   - {x: -0.46975842, y: 0.44545898, z: 0}
   m_ShapePathHash: 588894001
   m_Mesh: {fileID: 0}
-  m_InstanceId: 16428
+  m_InstanceId: 29648
 --- !u!1 &6613670661050688694
 GameObject:
   m_ObjectHideFlags: 0
@@ -387,8 +387,14 @@ MonoBehaviour:
     pitch: 1
     loop: 0
     source: {fileID: 0}
-  - name: 
-    clip: {fileID: 0}
+  - name: GetsTotallyVisible
+    clip: {fileID: 8300000, guid: e8ecc2e887ac2ea4bbf0ffcd8c5a6395, type: 3}
+    volume: 0.202
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: GetsTotallyHidden
+    clip: {fileID: 8300000, guid: 5f70a2783b91430419e8d0372eb172c2, type: 3}
     volume: 1
     pitch: 1
     loop: 0

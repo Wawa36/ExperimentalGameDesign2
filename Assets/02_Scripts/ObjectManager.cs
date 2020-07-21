@@ -10,28 +10,6 @@ public class ObjectManager : MonoBehaviour
     #region SINGLETON
     private static ObjectManager instance = null;
 
-    // Game Instance Singleton
-    public static ObjectManager Instance
-    {
-        get
-        {
-            return instance;
-        }
-    }
-
-    private void Awake()
-    {
-        // if the singleton hasn't been initialized yet
-        if (instance != null && instance != this)
-        {
-            Destroy(this.gameObject);
-        }
-
-        instance = this;
-        DontDestroyOnLoad(this.gameObject);
-    }
-    #endregion
-
     public float objectTeleportFrequence = 10f;
 
     //[HideInInspector]
@@ -55,7 +33,7 @@ public class ObjectManager : MonoBehaviour
     public float freezeCountdown;
     public int maxFreezeNumber;
 
-    [Header("COLORS")] 
+    [Header("COLORS")]
     public Color ColorNormal;
     public Color ColorFrozen;
     public Color ColorWinning;
@@ -64,13 +42,36 @@ public class ObjectManager : MonoBehaviour
     public Material lit; //lol das ist Julians Spiel! 
     public Material unlit; //und das ist das gegenteil von Julians Spiel!
 
-    // Start is called before the first frame update
+    // Game Instance Singleton
+    public static ObjectManager Instance
+    {
+        get
+        {
+            return instance;
+        }
+    }
+
+    private void Awake()
+    {
+        // if the singleton hasn't been initialized yet
+        if (instance != null && instance != this)
+        {
+            Destroy(this.gameObject);
+        }
+
+        instance = this;
+        DontDestroyOnLoad(this.gameObject);
+        UpdateObjects();
+    }
+    #endregion
+
+
     void Start()
     {
         frozenObjects = new ListQueue<GameObject>();
         player = GameObject.FindObjectOfType<PlayerMovement>();
         Physics.autoSyncTransforms = true;
-        UpdateObjects();
+        
     }
 
 
