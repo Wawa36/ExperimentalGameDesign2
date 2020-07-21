@@ -165,6 +165,11 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+  audioMixerGroups:
+  - {fileID: 24300002, guid: 8f6c099583d445946afeaac7007590a4, type: 2}
+  - {fileID: -7265421458516506062, guid: 8f6c099583d445946afeaac7007590a4, type: 2}
+  - {fileID: -1042388144632406799, guid: 8f6c099583d445946afeaac7007590a4, type: 2}
+  - {fileID: 891069530222708123, guid: 8f6c099583d445946afeaac7007590a4, type: 2}
 --- !u!1 &3118431351399990978
 GameObject:
   m_ObjectHideFlags: 0

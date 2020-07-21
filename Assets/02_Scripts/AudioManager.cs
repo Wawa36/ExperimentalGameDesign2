@@ -26,21 +26,25 @@ public class AudioManager : MonoBehaviour
                 s.source = this.gameObject.AddComponent<AudioSource>();
             else
             {
+                // add new GameObj for teleport spatial animation sound
                 GameObject soundObj = new GameObject();
                 soundObj.transform.parent = this.transform;
                 soundObj.name = "TeleportSound";
                 soundObj.transform.position = this.transform.position;
                 s.source = soundObj.AddComponent<AudioSource>();
             }
-                
+            
+            // individual settings
             s.source.clip = s.clip;
             s.source.volume = s.volume;
             s.source.pitch = s.pitch;
             s.source.loop = s.loop;
 
+            // global audio settings
+            s.source.outputAudioMixerGroup = GlobalAudioSettings.instance.audioMixerGroups[0];
             s.source.spatialBlend = GlobalAudioSettings.instance.spatialBlend;
-            s.source.rolloffMode = GlobalAudioSettings.instance.rolloffMode;
             s.source.maxDistance = GlobalAudioSettings.instance.maxDistance;
+            s.source.rolloffMode = GlobalAudioSettings.instance.rolloffMode;
             if (GlobalAudioSettings.instance.rolloffMode == AudioRolloffMode.Custom)
                 s.source.SetCustomCurve(AudioSourceCurveType.CustomRolloff, GlobalAudioSettings.instance.customSpacialCurve);
 
