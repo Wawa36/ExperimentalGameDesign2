@@ -29,13 +29,7 @@ public class ObjectPlayerLine : MonoBehaviour
 
     void Update()
     {
-        if(isTotallyVisible && isIntersected)
-        {
-            isTotallyVisible = false;
-        } else if(isTotallyVisible && !isIntersected)
-        {
-            isTotallyVisible = true;
-        }
+        
     }
 
 
@@ -70,8 +64,23 @@ public class ObjectPlayerLine : MonoBehaviour
                 }
             }
             gameObject.layer = LayerMask.NameToLayer("Default");
-
         }
+
+        CorrectVisibility();
+    }
+
+    void CorrectVisibility()
+    {
+        if (isTotallyVisible && isIntersected)
+        {
+            isTotallyVisible = false;
+        }
+        else if (isTotallyVisible && !isIntersected)
+        {
+            isTotallyVisible = true;
+        }
+        if (isTotallyHidden)
+            isIntersected = false;
     }
 
 

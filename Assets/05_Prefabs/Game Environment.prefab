@@ -102,8 +102,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sounds:
-  - name: ObjectMove
-    clip: {fileID: 8300000, guid: 9353dffcf71d8164fa5d1cf937e8c152, type: 3}
+  - name: Win
+    clip: {fileID: 0}
     volume: 1
     pitch: 1
     loop: 0
@@ -121,8 +121,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spatialBlend: 1
-  maxDistance: 5
-  rolloffMode: 0
+  maxDistance: 30
+  rolloffMode: 2
   customSpacialCurve:
     serializedVersion: 2
     m_Curve:
@@ -136,35 +136,40 @@ MonoBehaviour:
       inWeight: 0
       outWeight: 0
     - serializedVersion: 3
-      time: 0.14928019
-      value: 0.9927716
+      time: 0.143314
+      value: 0.9949727
       inSlope: -0.005525242
-      outSlope: -4.849231
+      outSlope: -3.4035437
       tangentMode: 1
       weightedMode: 0
       inWeight: 0.5567144
-      outWeight: 0.15892778
+      outWeight: 0.08182427
     - serializedVersion: 3
-      time: 0.34513995
-      value: 0.14362767
-      inSlope: -0.16590995
-      outSlope: -0.10180544
+      time: 0.50960547
+      value: 0.20521477
+      inSlope: -0.95990986
+      outSlope: -0.9827751
       tangentMode: 1
       weightedMode: 0
-      inWeight: 0.46329218
-      outWeight: 0.2730795
+      inWeight: 0.1555296
+      outWeight: 0.09539555
     - serializedVersion: 3
-      time: 1.0025227
-      value: 0.12340149
-      inSlope: -0.023287686
-      outSlope: -0.023287686
+      time: 1.0000203
+      value: 0.000049442053
+      inSlope: -0.020633986
+      outSlope: -0.020633986
       tangentMode: 0
       weightedMode: 0
-      inWeight: 0.2532086
+      inWeight: 0.14594921
       outWeight: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+  audioMixerGroups:
+  - {fileID: 24300002, guid: 8f6c099583d445946afeaac7007590a4, type: 2}
+  - {fileID: -7265421458516506062, guid: 8f6c099583d445946afeaac7007590a4, type: 2}
+  - {fileID: -1042388144632406799, guid: 8f6c099583d445946afeaac7007590a4, type: 2}
+  - {fileID: 891069530222708123, guid: 8f6c099583d445946afeaac7007590a4, type: 2}
 --- !u!1 &3118431351399990978
 GameObject:
   m_ObjectHideFlags: 0
@@ -175,7 +180,6 @@ GameObject:
   m_Component:
   - component: {fileID: 3200375711423517156}
   - component: {fileID: 5751976333083202961}
-  - component: {fileID: 1571897459366282182}
   - component: {fileID: 4150414662177455513}
   m_Layer: 0
   m_Name: Camera
@@ -241,14 +245,6 @@ Camera:
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
---- !u!81 &1571897459366282182
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3118431351399990978}
-  m_Enabled: 1
 --- !u!114 &4150414662177455513
 MonoBehaviour:
   m_ObjectHideFlags: 0

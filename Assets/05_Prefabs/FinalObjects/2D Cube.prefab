@@ -111,7 +111,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &4301596957107476532
 Transform:
   m_ObjectHideFlags: 0
@@ -151,7 +151,7 @@ MonoBehaviour:
   - {x: -0.41734886, y: 0.42836902, z: 0}
   m_ShapePathHash: -795412083
   m_Mesh: {fileID: 0}
-  m_InstanceId: -104810
+  m_InstanceId: 29314
 --- !u!1 &2827566071853809360
 GameObject:
   m_ObjectHideFlags: 0
@@ -291,7 +291,7 @@ MonoBehaviour:
   - {x: -0.5, y: 0.5, z: 0}
   m_ShapePathHash: 0
   m_Mesh: {fileID: 0}
-  m_InstanceId: -104806
+  m_InstanceId: 29296
 --- !u!1 &8091960089062838979
 GameObject:
   m_ObjectHideFlags: 0
@@ -308,6 +308,7 @@ GameObject:
   - component: {fileID: 4039586823208423334}
   - component: {fileID: 7272066633304201484}
   - component: {fileID: 3101000625070150739}
+  - component: {fileID: 8170014626503800785}
   m_Layer: 0
   m_Name: 2D Cube
   m_TagString: Object
@@ -451,3 +452,46 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isCoroutineRunning: 0
+--- !u!114 &8170014626503800785
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8091960089062838979}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5dddfa3f6c7dbb4f828f68fe546fdaa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sounds:
+  - name: Move
+    clip: {fileID: 8300000, guid: 9353dffcf71d8164fa5d1cf937e8c152, type: 3}
+    volume: 0.1
+    pitch: 0.8
+    loop: 1
+    source: {fileID: 0}
+  - name: Teleport
+    clip: {fileID: 8300000, guid: 5f70a2783b91430419e8d0372eb172c2, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: Freeze
+    clip: {fileID: 8300000, guid: bcddb6fe30bb3ff46a8237867c6ad984, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: GetsTotallyVisible
+    clip: {fileID: 8300000, guid: e8ecc2e887ac2ea4bbf0ffcd8c5a6395, type: 3}
+    volume: 0.202
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: GetsTotallyHidden
+    clip: {fileID: 8300000, guid: 5f70a2783b91430419e8d0372eb172c2, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}

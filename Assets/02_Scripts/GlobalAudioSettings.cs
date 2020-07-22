@@ -11,6 +11,7 @@ public class GlobalAudioSettings : MonoBehaviour
     public float maxDistance = 10f;
     public AudioRolloffMode rolloffMode = AudioRolloffMode.Custom;
     public AnimationCurve customSpacialCurve;
+    public AudioMixerGroup[] audioMixerGroups;
 
 
     // Start is called before the first frame update

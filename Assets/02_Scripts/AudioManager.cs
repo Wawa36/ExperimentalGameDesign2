@@ -1,5 +1,7 @@
 ﻿using UnityEngine.Audio;
 using UnityEngine;
+using System.Collections;
+using System.Collections.Generic;
 using System;
 
 public class AudioManager : MonoBehaviour
@@ -20,20 +22,33 @@ public class AudioManager : MonoBehaviour
 
         foreach (Sound s in sounds)
         {
-            s.source = this.gameObject.AddComponent<AudioSource>();
+            // Add AudioSource
+            if (s.name != "Teleport")
+                s.source = this.gameObject.AddComponent<AudioSource>();
+            else
+            {
+                // exeption: teleport sound
+                GameObject soundObj = new GameObject();
+                soundObj.transform.parent = this.transform;
+                soundObj.name = "TeleportSound";
+                soundObj.transform.position = this.transform.position;
+                s.source = soundObj.AddComponent<AudioSource>();
+            }
+            
+            // individual settings
             s.source.clip = s.clip;
             s.source.volume = s.volume;
             s.source.pitch = s.pitch;
             s.source.loop = s.loop;
 
-            print("gameobj: " + this.gameObject.name);
+            // global audio settings
+            s.source.outputAudioMixerGroup = GlobalAudioSettings.instance.audioMixerGroups[0];
             s.source.spatialBlend = GlobalAudioSettings.instance.spatialBlend;
-            s.source.rolloffMode = GlobalAudioSettings.instance.rolloffMode;
             s.source.maxDistance = GlobalAudioSettings.instance.maxDistance;
+            s.source.rolloffMode = GlobalAudioSettings.instance.rolloffMode;
             if (GlobalAudioSettings.instance.rolloffMode == AudioRolloffMode.Custom)
                 s.source.SetCustomCurve(AudioSourceCurveType.CustomRolloff, GlobalAudioSettings.instance.customSpacialCurve);
-            else
-                s.source.rolloffMode = GlobalAudioSettings.instance.rolloffMode;
+
         }
     }
 
@@ -46,18 +61,46 @@ public class AudioManager : MonoBehaviour
         //    Stop("Stone");
     }
 
-    public void Play(string name)
+    public void Play(string name, bool checkForPlaying = false)
     {
         Sound s = Array.Find(sounds, sound => sound.name == name);
         if (s != null)
         {
-            //print("is playing? " + s.source.isPlaying);
-            if (!s.source.isPlaying)
+            if (checkForPlaying)
+            {
+                if (!s.source.isPlaying)
+                    s.source.Play();
+            }
+            else
                 s.source.Play();
         }
         else
             Debug.LogError("Sound not found");
-            
+    }
+    
+    public IEnumerator PlayFromAToB(string name, float maxTime, GameObject obj, Vector3 startPos, Vector3 goalPos)
+    {
+        Sound s = Array.Find(sounds, sound => sound.name == name);
+        float timer = 0;
+        if (s != null)
+        {
+            // start playing
+            //if (!s.source.isPlaying)
+                s.source.Play();
+
+            // lerp position
+            while (timer < maxTime)
+            {
+                timer += Time.deltaTime;
+                obj.transform.position = Vector3.Lerp(startPos, goalPos, timer / maxTime);
+                print("sound coroutine");
+                Debug.DrawLine(startPos, goalPos, Color.magenta);
+                yield return null;
+            }
+            print("ende coroutine");
+        }
+        else
+            Debug.LogError("Sound not found");
     }
 
     public void Stop(string name)
